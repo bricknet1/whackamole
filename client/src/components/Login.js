@@ -7,59 +7,64 @@ import { useFormik } from "formik";
 
 function Login({ setUser }) {
 
-    const history = useHistory();
-    const [error, setError] = useState('');
-    // const [signup, setSignup] = useState(false);
+  const history = useHistory();
+  const [error, setError] = useState('');
+  // const [signup, setSignup] = useState(false);
 
-    // const handleClick = () => setSignup(!signup)
+  // const handleClick = () => setSignup(!signup)
 
-    // const formSchema = yup.object().shape({
-    //     email: yup.string().email(),
-    //     password: yup
-    //         .string()
-    //         .required('Password is required'),
-    // });
+  // const formSchema = yup.object().shape({
+  //     email: yup.string().email(),
+  //     password: yup
+  //         .string()
+  //         .required('Password is required'),
+  // });
 
-    const formik = useFormik({
-        initialValues: {
-            email: '',
-            password: ''
+  function handleSignup(){
+    history.push('/signup')
+  }
+
+  const formik = useFormik({
+    initialValues: {
+      username: '',
+      password: ''
+    },
+    // validationSchema: formSchema,
+    onSubmit: (values) => {
+      fetch('/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
         },
-        // validationSchema: formSchema,
-        onSubmit: (values) => {
-            fetch('/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(values)
-            })
-            .then(res => {
-                if (res.ok) {
-                    res.json().then(user => {
-                        setUser(user)
-                        history.push('/')
-                    })
-                } else {
-                    res.json().then(error => setError(error.message))
-                };
-            })
-        }
-    })
+        body: JSON.stringify(values)
+      })
+      .then(res => {
+        if (res.ok) {
+          res.json().then(user => {
+            setUser(user)
+            history.push('/')
+          })
+        } else {
+          res.json().then(error => setError(error.message))
+        };
+      })
+    }
+  })
 
-    return (
-        <div className='login-div'>
-            <h2>Login</h2>
-            {error&& <h3 style={{color:'#4FC9C2'}}> {error}</h3>}
-            <form onSubmit={formik.handleSubmit}>
-                <label >Username</label><br></br>
-                <input type="text"  name="username" value={formik.values.username} onChange={formik.handleChange} /><br></br><br></br>
-                <label >Password</label><br></br>
-                <input type="password"  name="password" value={formik.values.password} onChange={formik.handleChange} /><br></br><br></br>
-                <input type='submit' value='Log In!' />
-            </form>
-        </div>
-    );
+  return (
+    <div className='signup-login'>
+      <h2>Login</h2>
+      {error&& <h3 style={{color:'#4FC9C2'}}> {error}</h3>}
+      <form onSubmit={formik.handleSubmit}>
+        <label >Username</label><br></br>
+        <input type="text"  name="username" value={formik.values.username} onChange={formik.handleChange} /><br></br><br></br>
+        <label >Password</label><br></br>
+        <input type="password"  name="password" value={formik.values.password} onChange={formik.handleChange} /><br></br><br></br>
+        <input type='submit' value='Log In!' />
+      </form>
+      <br/><br/><br/><p>New to Whackamolé?</p><button className='loginsignupbtn' onClick={handleSignup}>Signup Instead</button>
+    </div>
+  );
 }
 
 export default Login;
