@@ -53,7 +53,7 @@ function App() {
   return (
     <div className='app'>
       <div className='header'>
-        <h1>Whackamole</h1>
+        <h1>Guac-a-mole</h1>
       </div>
       <div className='main-container'>
         <div className='top-hud'>

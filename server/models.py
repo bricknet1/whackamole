@@ -7,7 +7,7 @@ from sqlalchemy.ext.associationproxy import association_proxy
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
 
-    serialize_rules = ('-_password_hash',)
+    serialize_rules = ('-_password_hash', '-user_items', 'item_list')
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String)
@@ -27,6 +27,13 @@ class User(db.Model, SerializerMixin):
     scores = db.relationship('Score', backref='user', cascade='all, delete-orphan')
     user_items = db.relationship('UserItem', backref='user', cascade='all, delete-orphan')
     items = association_proxy('user_items', 'item')
+
+    @property
+    def item_list(self):
+        returnlist = []
+        for item in self.user_items:
+            returnlist.append(item.item_id)
+        return returnlist
 
     _password_hash = db.Column(db.String)
 
@@ -71,11 +78,12 @@ class Item(db.Model, SerializerMixin):
     cost = db.Column(db.Integer)
 
     user_items = db.relationship('UserItem', backref='item')
+    users = association_proxy('user_items', 'user')
 
 class UserItem(db.Model, SerializerMixin):
     __tablename__ = 'user_items'
 
-    serialize_rules = ('-user',)
+    serialize_rules = ('-user', '-item')
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
