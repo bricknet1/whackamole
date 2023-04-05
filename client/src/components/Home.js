@@ -1,6 +1,6 @@
 import { useHistory } from 'react-router-dom';
 
-function Home({user, setUser}){
+function Home({user, setUser, handleLogout}){
   
   const history = useHistory();
 
@@ -20,17 +20,7 @@ function Home({user, setUser}){
     history.push('/highscores')
   }
 
-  function handleLogout(){
-    fetch('/logout', {
-      method: "DELETE"
-    })
-    .then(res => {
-      if(res.ok){
-        setUser(null)
-        history.push('/login')
-      }
-    })
-  }
+
 
   // if(!user){return <h2>Loading...</h2>}
   // if(user){

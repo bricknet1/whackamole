@@ -94,6 +94,11 @@ button {
   100% {background-color: red}
 }
 
+@keyframes noanimate {
+  0% {background-color: #D9D9D9}
+  100% {background-color: #D9D9D9}
+}
+
 button:hover {
   animation: bgcolor;
   animation-duration: 2s;
@@ -127,281 +132,30 @@ input{
 .scorelist{
   align-items: center;
   text-align: left;
-  /* position: absolute; */
-  /* width: 500px; */
-  /* height: 500px; */
-  /* left: calc(50% - 200px/2); */
   margin-left: 60px;
 }
 
-/* score box */
-
-
-position: absolute;
-width: 150px;
-height: 50px;
-left: 380px;
-top: 162px;
-
-background: #D9D9D9;
-
-
-/* score text */
-
-
-position: absolute;
-width: 150px;
-height: 50px;
-left: 380px;
-top: 162px;
-
-font-family: 'Press Start 2P';
-font-style: normal;
-font-weight: 400;
-font-size: 12px;
-line-height: 12px;
-display: flex;
-align-items: center;
-text-align: center;
-
-color: #000000;
-
-
-
-/* coins box */
-
-
-position: absolute;
-width: 150px;
-height: 50px;
-left: 556px;
-top: 162px;
-
-background: #D9D9D9;
-
-
-/* coins text */
-
-
-position: absolute;
-width: 150px;
-height: 50px;
-left: 555px;
-top: 162px;
-
-font-family: 'Press Start 2P';
-font-style: normal;
-font-weight: 400;
-font-size: 12px;
-line-height: 12px;
-display: flex;
-align-items: center;
-text-align: center;
-
-color: #000000;
-
-
-
-/* health box */
-
-
-position: absolute;
-width: 150px;
-height: 50px;
-left: 733px;
-top: 162px;
-
-background: #D9D9D9;
-
-
-/* health text */
-
-
-position: absolute;
-width: 150px;
-height: 50px;
-left: 731px;
-top: 162px;
-
-font-family: 'Press Start 2P';
-font-style: normal;
-font-weight: 400;
-font-size: 12px;
-line-height: 12px;
-display: flex;
-align-items: center;
-text-align: center;
-
-color: #000000;
-
-
-
-/* time box */
-
-
-position: absolute;
-width: 150px;
-height: 50px;
-left: 910px;
-top: 162px;
-
-background: #D9D9D9;
-
-
-/* time text */
-
-
-position: absolute;
-width: 150px;
-height: 50px;
-left: 910px;
-top: 162px;
-
-font-family: 'Press Start 2P';
-font-style: normal;
-font-weight: 400;
-font-size: 12px;
-line-height: 12px;
-display: flex;
-align-items: center;
-text-align: center;
-
-color: #000000;
-
-
-
-
-
-/* stats box */
-
-
-position: absolute;
-width: 150px;
-height: 50px;
-left: 380px;
-top: 812px;
-
-background: #D9D9D9;
-
-
-/* stats text */
-
-
-position: absolute;
-width: 150px;
-height: 50px;
-left: 380px;
-top: 812px;
-
-font-family: 'Press Start 2P';
-font-style: normal;
-font-weight: 400;
-font-size: 12px;
-line-height: 12px;
-display: flex;
-align-items: center;
-text-align: center;
-
-color: #000000;
-
-
-
-/* item 1 box */
-
-
-position: absolute;
-width: 150px;
-height: 50px;
-left: 555px;
-top: 812px;
-
-background: #D9D9D9;
-
-
-/* item 1 text */
-
-
-position: absolute;
-width: 150px;
-height: 50px;
-left: 556px;
-top: 812px;
-
-font-family: 'Press Start 2P';
-font-style: normal;
-font-weight: 400;
-font-size: 12px;
-line-height: 12px;
-display: flex;
-align-items: center;
-text-align: center;
-
-color: #000000;
-
-
-
-/* item 2 box */
-
-
-position: absolute;
-width: 150px;
-height: 50px;
-left: 733px;
-top: 812px;
-
-background: #D9D9D9;
-
-
-/* item 2 text */
-
-
-position: absolute;
-width: 150px;
-height: 50px;
-left: 733px;
-top: 812px;
-
-font-family: 'Press Start 2P';
-font-style: normal;
-font-weight: 400;
-font-size: 12px;
-line-height: 12px;
-display: flex;
-align-items: center;
-text-align: center;
-
-color: #000000;
-
-
-
-/* max health box */
-
-
-position: absolute;
-width: 150px;
-height: 50px;
-left: 910px;
-top: 812px;
-
-background: #D9D9D9;
-
-
-/* max health text */
-
-
-position: absolute;
-width: 150px;
-height: 50px;
-left: 908px;
-top: 812px;
-
-font-family: 'Press Start 2P';
-font-style: normal;
-font-weight: 400;
-font-size: 12px;
-line-height: 12px;
-display: flex;
-align-items: center;
-text-align: center;
-
-color: #000000;
+.button1{
+  left: 10px;
+  top: 10px;
+}
+
+.button2{
+  left: 145px;
+  top: 10px;
+}
+
+.button3{
+  left: 280px;
+  top: 10px;
+}
+
+.button4{
+  left: 415px;
+  top: 10px;
+}
+
+#empty:hover {
+  animation: noanimate;
+  cursor: default;
+}

@@ -25,6 +25,8 @@ class User(db.Model, SerializerMixin):
     item2 = db.Column(db.Integer)
 
     scores = db.relationship('Score', backref='user', cascade='all, delete-orphan')
+    user_items = db.relationship('UserItem', backref='user', cascade='all, delete-orphan')
+    items = association_proxy('user_items', 'item')
 
     _password_hash = db.Column(db.String)
 
@@ -55,3 +57,26 @@ class Score(db.Model, SerializerMixin):
     score = db.Column(db.Integer)
     date = db.Column(db.DateTime, server_default=db.func.now())
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+class Item(db.Model, SerializerMixin):
+    __tablename__ = 'items'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String)
+    category = db.Column(db.String)
+    description = db.Column(db.String)
+    attack = db.Column(db.Integer)
+    defense = db.Column(db.Integer)
+    health = db.Column(db.Integer)
+    cost = db.Column(db.Integer)
+
+    user_items = db.relationship('UserItem', backref='item')
+
+class UserItem(db.Model, SerializerMixin):
+    __tablename__ = 'user_items'
+
+    serialize_rules = ('-user',)
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    item_id = db.Column(db.Integer, db.ForeignKey('items.id'))

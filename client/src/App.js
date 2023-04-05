@@ -1,11 +1,13 @@
 import { Route, Switch } from 'react-router-dom'
 import {useEffect, useState} from 'react'
+import { useHistory } from 'react-router-dom';
 
 import Login from './components/Login.js';
 import Signup from './components/Signup.js';
 import Home from './components/Home.js';
 import HighScores from './components/HighScores.js';
 import HighScoresTopHud from './components/HighScoresTopHud.js';
+import HighScoresBottomHud from './components/HighScoresBottomHud.js';
 import Items from './components/Items.js';
 import Play from './components/Play.js';
 import Settings from './components/Settings.js';
@@ -13,6 +15,8 @@ import Settings from './components/Settings.js';
 function App() {
 
   const [user, setUser] = useState(null);
+
+  const history = useHistory();
 
   useEffect(() => {
     fetchUser()
@@ -32,6 +36,18 @@ function App() {
     })
   )
 
+  function handleLogout(){
+    fetch('/logout', {
+      method: "DELETE"
+    })
+    .then(res => {
+      if(res.ok){
+        setUser(null)
+        history.push('/login')
+      }
+    })
+  }
+
   console.log(user);
 
   return (
@@ -43,14 +59,14 @@ function App() {
         <div className='top-hud'>
           <Switch>
             <Route path="/highscores" exact>
-              <HighScoresTopHud user={user}/>
+              <HighScoresTopHud/>
             </Route>
           </Switch>
         </div>
         <div className='play-field'>
           <Switch>
             <Route path="/" exact>
-              {user?<Home user={user} setUser={setUser}/>:<Login setUser={setUser}/>}
+              {user?<Home user={user} setUser={setUser} handleLogout={handleLogout}/>:<Login setUser={setUser}/>}
             </Route>
             <Route path="/highscores" exact>
               <HighScores/>
@@ -76,9 +92,9 @@ function App() {
           </Switch>
         </div>
         <div className='bottom-hud'>
-          <Switch>
-            <Route path="/play" exact>
-              <Play user={user}/>
+        <Switch>
+            <Route path="/highscores" exact>
+              <HighScoresBottomHud user={user} handleLogout={handleLogout}/>
             </Route>
           </Switch>
         </div>
