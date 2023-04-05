@@ -14,7 +14,7 @@ function Signup({setUser}) {
 
   const formSchema = yup.object().shape({
     email: yup.string().email('Must be a valid email').required('Email is required'),
-    username: yup.string().required('Username is required'),
+    username: yup.string().required('Username is required').max(10, "Username can't exceed 10 characters"),
     password: yup.string().required('Password is required'),
       // .min(5, 'Your password is too short.')
       // .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.'),

@@ -124,7 +124,15 @@ input{
   font-size: 75%;
 }
 
-
+.scorelist{
+  align-items: center;
+  text-align: left;
+  /* position: absolute; */
+  /* width: 500px; */
+  /* height: 500px; */
+  /* left: calc(50% - 200px/2); */
+  margin-left: 60px;
+}
 
 /* score box */
 

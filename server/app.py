@@ -4,7 +4,7 @@ from flask import request, make_response, session, jsonify, abort
 from flask_restful import Resource
 from werkzeug.exceptions import NotFound, Unauthorized
 
-from models import User
+from models import User, Score
 from config import app, db, api
 
 class Signup(Resource):
@@ -49,6 +49,23 @@ class Logout(Resource):
         session['user_id'] = None
         return make_response('', 204)
 api.add_resource(Logout, '/logout')
+
+class Scores(Resource):
+    def get(self):
+        try:
+            scores = [score.to_dict(rules=('user',)) for score in Score.query.all()]
+            scores.sort(key=lambda x: x['score'], reverse=True)
+            return make_response(scores[:10], 200)
+        except Exception as e:
+            abort(404, [e.__str__()])
+
+    def post(self):
+        data = request.get_json()
+        newscore = Score(user_id=data['id'], score=data['score'])
+        db.session.add(newscore)
+        db.session.commit()
+        return make_response(newscore.to_dict(), 201)
+api.add_resource(Scores, '/highscores')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

@@ -24,6 +24,8 @@ class User(db.Model, SerializerMixin):
     item1 = db.Column(db.Integer)
     item2 = db.Column(db.Integer)
 
+    scores = db.relationship('Score', backref='user', cascade='all, delete-orphan')
+
     _password_hash = db.Column(db.String)
 
     @hybrid_property
@@ -43,3 +45,13 @@ class User(db.Model, SerializerMixin):
         if "@" not in email:
             raise ValueError("Must be a valid email address")
         return email
+
+class Score(db.Model, SerializerMixin):
+    __tablename__ = 'scores'
+
+    serialize_rules = ('-user',)
+
+    id = db.Column(db.Integer, primary_key=True)
+    score = db.Column(db.Integer)
+    date = db.Column(db.DateTime, server_default=db.func.now())
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))

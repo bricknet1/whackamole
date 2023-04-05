@@ -5,6 +5,7 @@ import Login from './components/Login.js';
 import Signup from './components/Signup.js';
 import Home from './components/Home.js';
 import HighScores from './components/HighScores.js';
+import HighScoresTopHud from './components/HighScoresTopHud.js';
 import Items from './components/Items.js';
 import Play from './components/Play.js';
 import Settings from './components/Settings.js';
@@ -36,17 +37,23 @@ function App() {
   return (
     <div className='app'>
       <div className='header'>
-        <h1>Whackamolé</h1>
+        <h1>Whackamole</h1>
       </div>
       <div className='main-container'>
-        <div className='top-hud'></div>
+        <div className='top-hud'>
+          <Switch>
+            <Route path="/highscores" exact>
+              <HighScoresTopHud user={user}/>
+            </Route>
+          </Switch>
+        </div>
         <div className='play-field'>
           <Switch>
             <Route path="/" exact>
               {user?<Home user={user} setUser={setUser}/>:<Login setUser={setUser}/>}
             </Route>
             <Route path="/highscores" exact>
-              <HighScores user={user}/>
+              <HighScores/>
             </Route>
             <Route path="/items" exact>
               <Items user={user}/>
