@@ -32,8 +32,8 @@ function Home({user, setUser}){
     })
   }
 
-  if(!user){return <h2>Loading...</h2>}
-  if(user){
+  // if(!user){return <h2>Loading...</h2>}
+  // if(user){
     return(
       <div className='home-body'>
         <br/><h2>{user.username}</h2><br/><br/>
@@ -44,7 +44,7 @@ function Home({user, setUser}){
         <button onClick={handleLogout}>Log Out</button>
       </div>
     )
-  }
+  // }
 }
 
 export default Home;

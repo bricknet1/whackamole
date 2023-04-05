@@ -23,7 +23,7 @@ function App() {
       if(res.ok){
         res.json()
         .then(data => {
-          setUser(data)
+          if(data===user){console.log("all good bro")}else{setUser(data)}
         })
       } else {
         setUser(null)
@@ -68,7 +68,13 @@ function App() {
             </Route>
           </Switch>
         </div>
-        <div className='bottom-hud'></div>
+        <div className='bottom-hud'>
+          <Switch>
+            <Route path="/play" exact>
+              <Play user={user}/>
+            </Route>
+          </Switch>
+        </div>
       </div>
     </div>
   );
