@@ -8,7 +8,18 @@ function Items({user, allItems}){
     const filtered = allItems.filter(item => item.category === e.target.value)
     setItemsToDisplay(filtered)
   }
-  console.log(itemsToDisplay);
+
+  function handleBuy(e){
+    console.log("buying item "+e.target.value);
+  }
+
+  function handleEquip(e){
+    console.log("equipped item "+e.target.value);
+  }
+
+  function handleUnequip(e){
+    console.log("unequipped item "+e.target.value);
+  }
 
   const itemStore = itemsToDisplay.map((item, index) => {
     const {id, name, attack, defense, health, cost} = item;
@@ -16,7 +27,7 @@ function Items({user, allItems}){
     const equipped = user['item1']===id || user['item2']===id;
     return (
       <div key={index} className='item-store'>
-        {owned?(equipped?<button className='storebutton'>Unequip</button>:<button className='storebutton'>Equip</button>):<button className='storebutton'>{cost} Coins</button>}-{name}: {attack}/{defense}/{health}
+        {owned?(equipped?<button className='storebutton' value={id} onClick={handleUnequip}>Unequip</button>:<button className='storebutton' value={id} onClick={handleEquip}>Equip</button>):<button className='storebutton' value={id} onClick={handleBuy}>{cost} Coins</button>}-{name}: {attack}/{defense}/{health}
       </div>
     )
   })

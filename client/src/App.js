@@ -80,7 +80,7 @@ function App() {
               <HighScoresTopHud/>
             </Route>
             <Route path="/items" exact>
-              <ItemsTopHud user={user} allItems={allItems} item1={item1} item2={item2}/>
+              <ItemsTopHud user={user} allItems={allItems}/>
             </Route>
           </Switch>
         </div>
@@ -118,7 +118,7 @@ function App() {
               <HighScoresBottomHud user={user} handleLogout={handleLogout}/>
             </Route>
             <Route path="/items" exact>
-              <ItemsBottomHud user={user} allItems={allItems} item1={item1} item2={item2}/>
+              <ItemsBottomHud user={user} allItems={allItems} handleLogout={handleLogout}/>
             </Route>
           </Switch>
         </div>
