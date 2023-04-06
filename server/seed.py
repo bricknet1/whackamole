@@ -21,6 +21,9 @@ with app.app_context():
     user1 = User(
         username='bricknet',
         email='test@test.com',
+        coins=1000,
+        item1=5,
+        item2=10
     )
     user1.password_hash='boat'
     users.append(user1)

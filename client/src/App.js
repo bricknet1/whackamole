@@ -9,20 +9,30 @@ import HighScores from './components/HighScores.js';
 import HighScoresTopHud from './components/HighScoresTopHud.js';
 import HighScoresBottomHud from './components/HighScoresBottomHud.js';
 import Items from './components/Items.js';
+import ItemsTopHud from './components/ItemsTopHud.js';
+import ItemsBottomHud from './components/ItemsBottomHud.js';
 import Play from './components/Play.js';
 import Settings from './components/Settings.js';
 
 function App() {
 
   const [user, setUser] = useState(null);
+  const [allItems, setAllItems] = useState([]);
 
   const history = useHistory();
 
   useEffect(() => {
     fetchUser()
+    fetchItems()
   },[])
 
-  const fetchUser = () => (
+  const fetchItems = () => {
+    fetch('/items')
+    .then(res => res.json())
+    .then(data => setAllItems(data))
+  }
+
+  const fetchUser = () => {
     fetch('/authorized')
     .then(res => {
       if(res.ok){
@@ -34,7 +44,7 @@ function App() {
         setUser(null)
       }
     })
-  )
+  }
 
   function handleLogout(){
     fetch('/logout', {
@@ -61,6 +71,9 @@ function App() {
             <Route path="/highscores" exact>
               <HighScoresTopHud/>
             </Route>
+            <Route path="/items" exact>
+              <ItemsTopHud user={user} allItems={allItems}/>
+            </Route>
           </Switch>
         </div>
         <div className='play-field'>
@@ -72,7 +85,7 @@ function App() {
               <HighScores/>
             </Route>
             <Route path="/items" exact>
-              <Items user={user}/>
+              <Items user={user} allItems={allItems}/>
             </Route>
             <Route path="/play" exact>
               <Play user={user}/>
@@ -95,6 +108,9 @@ function App() {
         <Switch>
             <Route path="/highscores" exact>
               <HighScoresBottomHud user={user} handleLogout={handleLogout}/>
+            </Route>
+            <Route path="/items" exact>
+              <ItemsBottomHud user={user} allItems={allItems}/>
             </Route>
           </Switch>
         </div>

@@ -7,7 +7,7 @@ from sqlalchemy.ext.associationproxy import association_proxy
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
 
-    serialize_rules = ('-_password_hash', '-user_items', 'item_list')
+    serialize_rules = ('-_password_hash', '-user_items', 'item_list', 'items')
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String)
@@ -21,6 +21,7 @@ class User(db.Model, SerializerMixin):
     numpad7 = db.Column(db.String, default=7)
     numpad8 = db.Column(db.String, default=8)
     numpad9 = db.Column(db.String, default=9)
+    coins = db.Column(db.Integer, default=0)
     item1 = db.Column(db.Integer)
     item2 = db.Column(db.Integer)
 

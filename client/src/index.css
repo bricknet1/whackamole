@@ -159,3 +159,25 @@ input{
   animation: noanimate;
   cursor: default;
 }
+
+.item-store {
+  margin: 20px 0px 0px 60px;
+  height: 30px;
+  align-items: left;
+  text-align: left;
+  font-size: 15px;
+}
+
+.storebutton {
+  position: relative;
+  width: 130px;
+  height: 20px;
+  font-size: 12px;
+  vertical-align: 35%;
+}
+
+#empty-smallprint {
+  font-size: 8px;
+  animation: noanimate;
+  cursor: default;
+}
