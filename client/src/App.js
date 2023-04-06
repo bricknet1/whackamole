@@ -18,6 +18,8 @@ function App() {
 
   const [user, setUser] = useState(null);
   const [allItems, setAllItems] = useState([]);
+  const [item1, setItem1] = useState({attack:0, category:'', cost:0, defense:0, description:'', health:0, id:0, name:''});
+  const [item2, setItem2] = useState({attack:0, category:'', cost:0, defense:0, description:'', health:0, id:0, name:''});
 
   const history = useHistory();
 
@@ -29,7 +31,9 @@ function App() {
   const fetchItems = () => {
     fetch('/items')
     .then(res => res.json())
-    .then(data => setAllItems(data))
+    .then(data => {
+      setAllItems(data)
+    })
   }
 
   const fetchUser = () => {
@@ -38,7 +42,11 @@ function App() {
       if(res.ok){
         res.json()
         .then(data => {
-          if(data===user){console.log("all good bro")}else{setUser(data)}
+          if(data===user){console.log("all good bro")}else{
+            setUser(data)
+            setItem1(data.items.filter(item => item.id === data.item1)[0])
+            setItem2(data.items.filter(item => item.id === data.item2)[0])
+          }
         })
       } else {
         setUser(null)
@@ -72,7 +80,7 @@ function App() {
               <HighScoresTopHud/>
             </Route>
             <Route path="/items" exact>
-              <ItemsTopHud user={user} allItems={allItems}/>
+              <ItemsTopHud user={user} allItems={allItems} item1={item1} item2={item2}/>
             </Route>
           </Switch>
         </div>
@@ -110,7 +118,7 @@ function App() {
               <HighScoresBottomHud user={user} handleLogout={handleLogout}/>
             </Route>
             <Route path="/items" exact>
-              <ItemsBottomHud user={user} allItems={allItems}/>
+              <ItemsBottomHud user={user} allItems={allItems} item1={item1} item2={item2}/>
             </Route>
           </Switch>
         </div>

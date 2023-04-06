@@ -8,15 +8,18 @@ function ItemsTopHud({user, allItems, item1, item2}){
     history.push('/')
   }
 
-  if(!user){return <></>}
-  return(
-    <div>
-      <button className='button1' id='empty'></button>
-      <button className='button2' id='empty'>Coins {user.coins}</button>
-      <button className='button3' id='empty'>Health 10</button>
-      <button className='button4' onClick={handleBack}>Back</button>
-    </div>
-  )
+  if(!user){return <></>}else{
+    const item1 = user.items.filter(item => item.id === user.item1)[0]
+    const item2 = user.items.filter(item => item.id === user.item2)[0]
+    return(
+      <div>
+        <button className='button1' id='empty'></button>
+        <button className='button2' id='empty'>Coins {user.coins}</button>
+        <button className='button3' id='empty'>Health {10+item1.health+item2.health}</button>
+        <button className='button4' onClick={handleBack}>Back</button>
+      </div>
+    )
+  }
 }
 
 export default ItemsTopHud;
