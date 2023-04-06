@@ -181,3 +181,85 @@ input{
   animation: noanimate;
   cursor: default;
 }
+
+#hole1{
+  position: absolute;
+  left: calc(25% - 100px/2);
+  top: calc(75% - 100px/2);
+}
+
+#hole2{
+  position: absolute;
+  left: calc(50% - 100px/2);
+  top: calc(75% - 100px/2);
+}
+
+#hole3{
+  position: absolute;
+  left: calc(75% - 100px/2);
+  top: calc(75% - 100px/2);
+}
+
+#hole4{
+  position: absolute;
+  left: calc(25% - 100px/2);
+  top: calc(50% - 100px/2);
+}
+
+#hole5{
+  position: absolute;
+  left: calc(50% - 100px/2);
+  top: calc(50% - 100px/2);
+}
+
+#hole6{
+  position: absolute;
+  left: calc(75% - 100px/2);
+  top: calc(50% - 100px/2);
+}
+
+#hole7{
+  position: absolute;
+  left: calc(25% - 100px/2);
+  top: calc(25% - 100px/2);
+}
+
+#hole8{
+  position: absolute;
+  left: calc(50% - 100px/2);
+  top: calc(25% - 100px/2);
+}
+
+#hole9{
+  position: absolute;
+  left: calc(75% - 100px/2);
+  top: calc(25% - 100px/2);
+}
+
+.hole{
+  width: 100px;
+  height: 100px;
+  background: #D9D9D9;
+  border-radius: 50px;
+  outline: ridge black 10px;
+  font-size: 20px;
+}
+
+.hole:hover{
+  animation: bgcolor;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+  cursor: pointer;
+}
+
+.settings-p {
+  position: absolute;
+  width: 500px;
+  left: calc(50% - 500px/2);
+}
+
+/* .hole-content{
+  position: absolute;
+  left: calc(50% - 100px/2);
+  top: calc(50% - 100px/2);
+} */

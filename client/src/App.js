@@ -13,6 +13,7 @@ import ItemsTopHud from './components/ItemsTopHud.js';
 import ItemsBottomHud from './components/ItemsBottomHud.js';
 import Play from './components/Play.js';
 import Settings from './components/Settings.js';
+import SettingsBottomHud from './components/SettingsBottomHud.js';
 
 function App() {
 
@@ -82,6 +83,9 @@ function App() {
             <Route path="/items" exact>
               <ItemsTopHud user={user} allItems={allItems}/>
             </Route>
+            <Route path="/settings" exact>
+              <HighScoresTopHud/>
+            </Route>
           </Switch>
         </div>
         <div className='play-field'>
@@ -93,13 +97,13 @@ function App() {
               <HighScores/>
             </Route>
             <Route path="/items" exact>
-              <Items user={user} allItems={allItems}/>
+              <Items user={user} setUser={setUser} allItems={allItems}/>
             </Route>
             <Route path="/play" exact>
               <Play user={user}/>
             </Route>
             <Route path="/settings" exact>
-              <Settings user={user}/>
+              <Settings user={user} setUser={setUser}/>
             </Route>
             <Route path="/login" exact>
               <Login setUser={setUser}/>
@@ -119,6 +123,9 @@ function App() {
             </Route>
             <Route path="/items" exact>
               <ItemsBottomHud user={user} allItems={allItems} handleLogout={handleLogout}/>
+            </Route>
+            <Route path="/settings" exact>
+              <SettingsBottomHud user={user} handleLogout={handleLogout}/>
             </Route>
           </Switch>
         </div>

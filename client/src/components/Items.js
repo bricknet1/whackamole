@@ -1,6 +1,6 @@
 import {useState} from 'react'
 
-function Items({user, allItems}){
+function Items({user, setUser, allItems}){
 
   const [itemsToDisplay, setItemsToDisplay] = useState([]);
 
@@ -9,16 +9,59 @@ function Items({user, allItems}){
     setItemsToDisplay(filtered)
   }
 
+  function fetcher(values){
+    fetch(`/users/${user['id']}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(values)
+    })
+    .then(res => {
+      if (res.ok) {
+        res.json().then(data => setUser(data))
+      } else {
+        res.json().then(error => console.log(error.message))
+      };
+    })
+  }
+
   function handleBuy(e){
-    console.log("buying item "+e.target.value);
+    const selected_item = parseInt(e.target.value)
+    const cost = allItems.filter(item => item.id === selected_item)[0].cost
+    const newCoins = (user['coins'])-cost
+    if(newCoins<0){return alert('You do not have enough coins')}
+    fetch('/useritems', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({"user_id":user['id'], "item_id":selected_item})
+    })
+    .then(res => {
+      if (res.ok) {
+        fetcher({"coins":newCoins})
+      }
+    })
   }
 
   function handleEquip(e){
-    console.log("equipped item "+e.target.value);
+    const selected_item = parseInt(e.target.value)
+    let slot = prompt("Equip as item 1 or item 2?\nPlease type either 1 or 2")
+    if (slot !== "1" && slot !== "2"){slot = prompt("Equip as item 1 or item 2?\nYou must type either 1 or 2")}
+    if (slot !== "1" && slot !== "2"){return alert("Item was not equipped")}
+    let values
+    if(slot === "1"){values = {"item1":selected_item}}
+    else if(slot === "2"){values = {"item2":selected_item}}
+    fetcher(values)
   }
 
   function handleUnequip(e){
-    console.log("unequipped item "+e.target.value);
+    const selected_item = parseInt(e.target.value)
+    let values
+    if(selected_item===user['item1']){values = {"item1":null}}
+    else if(selected_item===user['item2']){values = {"item2":null}}
+    fetcher(values)
   }
 
   const itemStore = itemsToDisplay.map((item, index) => {
@@ -32,6 +75,8 @@ function Items({user, allItems}){
     )
   })
 
+
+  
   return(
     <div>
       <h2>items</h2>

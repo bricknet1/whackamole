@@ -4,7 +4,7 @@ from flask import request, make_response, session, jsonify, abort
 from flask_restful import Resource
 from werkzeug.exceptions import NotFound, Unauthorized
 
-from models import User, Score, Item
+from models import User, Score, Item, UserItem
 from config import app, db, api
 
 class Signup(Resource):
@@ -72,6 +72,37 @@ class Items(Resource):
         items = [item.to_dict() for item in Item.query.all()]
         return make_response(items, 200)
 api.add_resource(Items, '/items')
+
+class Users(Resource):
+    def patch(self, id):
+        user = User.query.filter_by(id=id).first()
+        data = request.get_json()
+        if not user:
+            raise NotFound
+        for attr in data:
+            setattr(user, attr, data[attr])
+        db.session.add(user)
+        db.session.commit()
+        response = make_response(user.to_dict(), 200)
+        return response
+
+    def delete(self, id):
+        user = User.query.filter_by(id=id).first()
+        if not user:
+            raise NotFound
+        db.session.delete(user)
+        db.session.commit()
+        return make_response('', 204)
+api.add_resource(Users, '/users/<int:id>')
+
+class UserItems(Resource):
+    def post(self):
+        data = request.get_json()
+        new = UserItem(user_id=data['user_id'], item_id=data['item_id'])
+        db.session.add(new)
+        db.session.commit()
+        return make_response(new.to_dict(), 201)
+api.add_resource(UserItems, '/useritems')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
