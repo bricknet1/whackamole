@@ -16,7 +16,7 @@ with app.app_context():
     UserItem.query.delete()
 
     print('Creating Users')
-    usernames = ['TophDoggy', 'SAAAAAM', 'Mari Arz', 'Queen Bee', 'D Bear', 'Liana Din', 'EmileyRulz', 'Wyle', 'Schnyle', 'Stove', 'Cherrence', 'Patty']
+    usernames = ['TophDoggy', 'SAAAAAM', 'Ari_Potter', 'Queen Bee', 'D Bear', 'Liana Din', 'EmileyRulz', 'Wyle', 'Schnyle', 'Stove', 'Cherrence', 'Patty']
     users = []
     user1 = User(
         username='bricknet',
