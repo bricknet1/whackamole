@@ -1,14 +1,14 @@
-const timeReducer = (state=3, action) => {
+const healthReducer = (state=10, action) => {
   switch(action.type){
-    case 'CLOCKUP':
+    case 'HEALTHUP':
       return state+action.payload;
-    case 'CLOCKDOWN':
+    case 'HEALTHDOWN':
       return state-action.payload;
-    case 'CLOCKSET':
+    case 'HEALTHSET':
       return state=action.payload;
     default:
       return state;
   }
 };
 
-export default timeReducer;
+export default healthReducer;

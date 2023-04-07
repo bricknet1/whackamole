@@ -76,7 +76,7 @@ function App() {
       <div className='header'>
         <h1>Whack-a-mo-le</h1> 
       </div>
-      <div className='main-container'>
+      {user?<div className='main-container'>
         <div className='top-hud'>
           <Switch>
             <Route path="/highscores" exact>
@@ -111,11 +111,17 @@ function App() {
               <Settings user={user} setUser={setUser}/>
             </Route>
             <Route path="/login" exact>
+              <Home user={user} setUser={setUser} handleLogout={handleLogout}/>
+            </Route>
+            <Route path="/signup" exact>
+              <Home user={user} setUser={setUser} handleLogout={handleLogout}/>
+            </Route>
+            {/* <Route path="/login" exact>
               <Login setUser={setUser}/>
             </Route>
             <Route path="/signup" exact>
               <Signup setUser={setUser}/>
-            </Route>
+            </Route> */}
             <Route path="*">
               <h3>404 Not Found</h3>
             </Route>
@@ -138,6 +144,22 @@ function App() {
           </Switch>
         </div>
       </div>
+      :
+      <div className='main-container'>
+        <div className='top-hud'></div>
+        <div className='play-field'>
+          <Switch>
+            <Route path="/login" exact>
+              <Login setUser={setUser}/>
+            </Route>
+            <Route path="/signup" exact>
+              <Signup setUser={setUser}/>
+            </Route>
+          </Switch>
+        </div>
+        <div className='bottom-hud'></div>
+      </div>
+      }
     </div>
   );
 }

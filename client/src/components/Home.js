@@ -1,7 +1,13 @@
 import { useHistory } from 'react-router-dom';
+import {useSelector, useDispatch} from 'react-redux';
+import {healthSet} from '../actions';
 
 function Home({user, setUser, handleLogout}){
   
+  // const health = useSelector(state => state.health)
+  // const dispatch = useDispatch();
+  // dispatch(healthSet(user.health))
+
   const history = useHistory();
 
   function handlePlay(){
