@@ -1,5 +1,5 @@
-import { Route, Switch } from 'react-router-dom'
-import {useEffect, useState} from 'react'
+import { Route, Switch } from 'react-router-dom';
+import {useEffect, useState} from 'react';
 import { useHistory } from 'react-router-dom';
 
 import Login from './components/Login.js';
@@ -12,6 +12,8 @@ import Items from './components/Items.js';
 import ItemsTopHud from './components/ItemsTopHud.js';
 import ItemsBottomHud from './components/ItemsBottomHud.js';
 import Play from './components/Play.js';
+import PlayTopHud from './components/PlayTopHud.js';
+import PlayBottomHud from './components/PlayBottomHud.js';
 import Settings from './components/Settings.js';
 import SettingsBottomHud from './components/SettingsBottomHud.js';
 
@@ -72,7 +74,7 @@ function App() {
   return (
     <div className='app'>
       <div className='header'>
-        <h1>Guac-a-mole</h1>
+        <h1>Whack-a-mo-le</h1> 
       </div>
       <div className='main-container'>
         <div className='top-hud'>
@@ -82,6 +84,9 @@ function App() {
             </Route>
             <Route path="/items" exact>
               <ItemsTopHud user={user} allItems={allItems}/>
+            </Route>
+            <Route path="/play" exact>
+              <PlayTopHud user={user} allItems={allItems}/>
             </Route>
             <Route path="/settings" exact>
               <HighScoresTopHud/>
@@ -123,6 +128,9 @@ function App() {
             </Route>
             <Route path="/items" exact>
               <ItemsBottomHud user={user} allItems={allItems} handleLogout={handleLogout}/>
+            </Route>
+            <Route path="/play" exact>
+              <PlayBottomHud user={user} allItems={allItems} handleLogout={handleLogout}/>
             </Route>
             <Route path="/settings" exact>
               <SettingsBottomHud user={user} handleLogout={handleLogout}/>
