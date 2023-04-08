@@ -1,6 +1,6 @@
 // import {useState} from 'react'
 
-function PlayBottomHud({user, allItems}){
+function PlayBottomHud({user}){
 
   // const item2 = allItems.filter(item => item.id === user.item2)[0]
   // console.log(item1);

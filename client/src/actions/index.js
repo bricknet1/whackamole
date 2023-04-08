@@ -46,3 +46,24 @@ export const healthSet = (number) => {
     payload: number
   }
 }
+
+export const attackValueSet = (number) => {
+  return {
+    type: 'ATTACKVALUESET',
+    payload: number
+  }
+}
+
+export const hole1up = (settings) => {
+  return {
+    type: 'HOLE1UP',
+    payload: settings
+  }
+}
+
+export const hole1hit = (number) => {
+  return {
+    type: 'HOLE1HIT',
+    payload: number
+  }
+}

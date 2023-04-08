@@ -1,5 +1,5 @@
 import { Route, Switch } from 'react-router-dom';
-import {useEffect, useState} from 'react';
+import {useEffect, useState, useCallback} from 'react';
 import { useHistory } from 'react-router-dom';
 
 import Login from './components/Login.js';
@@ -26,12 +26,14 @@ function App() {
 
   const history = useHistory();
 
+  const userFetch = useCallback(fetchUser, [history]);
+
   useEffect(() => {
     fetchUser()
     fetchItems()
-  },[])
+  },[userFetch])
 
-  const fetchItems = () => {
+  function fetchItems(){
     fetch('/items')
     .then(res => res.json())
     .then(data => {
@@ -39,7 +41,7 @@ function App() {
     })
   }
 
-  const fetchUser = () => {
+  function fetchUser (){
     fetch('/authorized')
     .then(res => {
       if(res.ok){
@@ -86,7 +88,7 @@ function App() {
               <ItemsTopHud user={user} allItems={allItems}/>
             </Route>
             <Route path="/play" exact>
-              <PlayTopHud user={user} allItems={allItems}/>
+              <PlayTopHud user={user}/>
             </Route>
             <Route path="/settings" exact>
               <HighScoresTopHud/>
@@ -136,7 +138,7 @@ function App() {
               <ItemsBottomHud user={user} allItems={allItems} handleLogout={handleLogout}/>
             </Route>
             <Route path="/play" exact>
-              <PlayBottomHud user={user} allItems={allItems} handleLogout={handleLogout}/>
+              <PlayBottomHud user={user}/>
             </Route>
             <Route path="/settings" exact>
               <SettingsBottomHud user={user} handleLogout={handleLogout}/>

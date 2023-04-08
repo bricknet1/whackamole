@@ -1,13 +1,6 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useFormik } from "formik";
-// import * as yup from "yup";
-// import LoginForm from './LoginForm';
-// import SignupForm from './Signup';
-
-// import {useSelector, useDispatch} from 'react-redux';
-// import {healthSet} from '../actions';
-// import setLoginStates from "./setLoginStates";
 import {useSelector, useDispatch} from 'react-redux';
 import {healthSet} from '../actions';
 
@@ -15,16 +8,6 @@ function Login({ setUser }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const [error, setError] = useState("");
-  // const [signup, setSignup] = useState(false);
-
-  // const handleClick = () => setSignup(!signup)
-
-  // const formSchema = yup.object().shape({
-  //     email: yup.string().email(),
-  //     password: yup
-  //         .string()
-  //         .required('Password is required'),
-  // });
   
   function handleSignup() {
     history.push("/signup");
@@ -43,7 +26,6 @@ function Login({ setUser }) {
       username: "",
       password: "",
     },
-    // validationSchema: formSchema,
     onSubmit: (values) => {
       fetch("/login", {
         method: "POST",

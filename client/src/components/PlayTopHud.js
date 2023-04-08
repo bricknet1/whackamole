@@ -1,9 +1,9 @@
 import { useHistory } from 'react-router-dom';
 import {useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {clockDown, clockSet, healthSet} from '../actions';
+import {clockDown, clockSet} from '../actions';
 
-function PlayTopHud({user, allItems, item1, item2}){
+function PlayTopHud({user}){
 
   const history = useHistory();
 
@@ -27,8 +27,6 @@ function PlayTopHud({user, allItems, item1, item2}){
   }
   
   if(!user){return <></>}else{
-    // const item1 = user.items.filter(item => item.id === user.item1)[0]
-    // const item2 = user.items.filter(item => item.id === user.item2)[0]
     return(
       <div>
         <button className='button1' id='empty'>Score<br/>{score}</button>
