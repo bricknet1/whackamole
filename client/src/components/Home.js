@@ -1,6 +1,6 @@
 import { useHistory } from 'react-router-dom';
-import {useSelector, useDispatch} from 'react-redux';
-import {healthSet} from '../actions';
+// import {useSelector, useDispatch} from 'react-redux';
+// import {healthSet} from '../actions';
 
 function Home({user, setUser, handleLogout}){
   

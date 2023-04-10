@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useFormik } from "formik";
-import {useSelector, useDispatch} from 'react-redux';
-import {healthSet} from '../actions';
+import {useDispatch} from 'react-redux';
+import {healthSet, attackValueSet} from '../actions';
 
-function Login({ setUser }) {
+function Login({ setUser, setLoginStates }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const [error, setError] = useState("");
@@ -13,13 +13,14 @@ function Login({ setUser }) {
     history.push("/signup");
   }
   
-  const setLoginStates = (user) => {
-    const item1 = user.items.filter(item => item.id === user.item1)[0]
-    const item2 = user.items.filter(item => item.id === user.item2)[0]
-    return(
-      dispatch(healthSet(10+(item1?item1.health:0)+(item2?item2.health:0)))
-    )
-  }
+  // const setLoginStates = (user) => {
+  //   const item1 = user.items.filter(item => item.id === user.item1)[0]
+  //   const item2 = user.items.filter(item => item.id === user.item2)[0]
+  //   return(
+  //     dispatch(healthSet(10+(item1?item1.health:0)+(item2?item2.health:0))),
+  //     dispatch(attackValueSet(1+(item1?item1.attack:0)+(item2?item2.attack:0)))
+  //   )
+  // }
 
   const formik = useFormik({
     initialValues: {

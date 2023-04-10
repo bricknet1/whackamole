@@ -1,6 +1,8 @@
 import { Route, Switch } from 'react-router-dom';
 import {useEffect, useState, useCallback} from 'react';
 import { useHistory } from 'react-router-dom';
+import {healthSet, attackValueSet} from './actions';
+import {useDispatch} from 'react-redux';
 
 import Login from './components/Login.js';
 import Signup from './components/Signup.js';
@@ -25,6 +27,7 @@ function App() {
   const [item2, setItem2] = useState({attack:0, category:'', cost:0, defense:0, description:'', health:0, id:0, name:''});
 
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const userFetch = useCallback(fetchUser, [history]);
 
@@ -57,6 +60,15 @@ function App() {
         setUser(null)
       }
     })
+  }
+
+  const setLoginStates = (user) => {
+    const item1 = user.items.filter(item => item.id === user.item1)[0]
+    const item2 = user.items.filter(item => item.id === user.item2)[0]
+    return(
+      dispatch(healthSet(10+(item1?item1.health:0)+(item2?item2.health:0))),
+      dispatch(attackValueSet(1+(item1?item1.attack:0)+(item2?item2.attack:0)))
+    )
   }
 
   function handleLogout(){
@@ -152,16 +164,16 @@ function App() {
         <div className='play-field'>
           <Switch>
             <Route path="/" exact>
-              <Login setUser={setUser}/>
+              <Login setUser={setUser} setLoginStates={setLoginStates}/>
             </Route>
             <Route path="/login" exact>
-              <Login setUser={setUser}/>
+              <Login setUser={setUser} setLoginStates={setLoginStates}/>
             </Route>
             <Route path="/signup" exact>
-              <Signup setUser={setUser}/>
+              <Signup setUser={setUser} setLoginStates={setLoginStates}/>
             </Route>
             <Route path="*">
-              <Login setUser={setUser}/>
+              <Login setUser={setUser} setLoginStates={setLoginStates}/>
             </Route>
           </Switch>
         </div>

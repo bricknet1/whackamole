@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useFormik } from "formik";
 import * as yup from "yup";
-import {useSelector, useDispatch} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {healthSet} from '../actions';
 
-function Signup({setUser}) {
+function Signup({setUser, setLoginStates}) {
   const history = useHistory();
   const dispatch = useDispatch();
   const [error, setError] = useState('');
@@ -14,13 +14,13 @@ function Signup({setUser}) {
     history.push('/login')
   }
 
-  const setLoginStates = (user) => {
-    const item1 = user.items.filter(item => item.id === user.item1)[0]
-    const item2 = user.items.filter(item => item.id === user.item2)[0]
-    return(
-      dispatch(healthSet(10+(item1?item1.health:0)+(item2?item2.health:0)))
-    )
-  }
+  // const setLoginStates = (user) => {
+  //   const item1 = user.items.filter(item => item.id === user.item1)[0]
+  //   const item2 = user.items.filter(item => item.id === user.item2)[0]
+  //   return(
+  //     dispatch(healthSet(10+(item1?item1.health:0)+(item2?item2.health:0)))
+  //   )
+  // }
 
   const formSchema = yup.object().shape({
     email: yup.string().email('Must be a valid email').required('Email is required'),
