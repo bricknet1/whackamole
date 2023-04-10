@@ -1,11 +1,10 @@
 import {useState} from 'react'
-import {attackValueSet} from '../actions';
+import {attackValueSet, defenseValueSet} from '../actions';
 import {useSelector, useDispatch} from 'react-redux';
 
-function Items({user, setUser, allItems}){
+function Items({user, setUser, allItems, setValues}){
 
   const dispatch = useDispatch();
-  const attackValue = useSelector(state => state.attackValue)
   const [itemsToDisplay, setItemsToDisplay] = useState([]);
 
   function handleMenu(e){
@@ -25,11 +24,7 @@ function Items({user, setUser, allItems}){
       if (res.ok) {
         res.json().then(data => {
           setUser(data)
-          const item1 = data.items.filter(item => item.id === data.item1)[0]
-          const item2 = data.items.filter(item => item.id === data.item2)[0]
-          const newAttack = (1+(item1?item1.attack:0)+(item2?item2.attack:0));
-          dispatch(attackValueSet(newAttack))
-          console.log(attackValue);
+          setValues(data)
         })
       } else {
         res.json().then(error => console.log(error.message))

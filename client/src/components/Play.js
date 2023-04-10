@@ -1,10 +1,11 @@
 import {useEffect, useState} from 'react';
-import {hole1hit, hole1up, hole2hit, hole2up, hole3hit, hole3up, hole4hit, hole4up, hole5hit, hole5up, hole6hit, hole6up, hole7hit, hole7up, hole8hit, hole8up, hole9hit, hole9up, healthDown, clockUp, clockDown} from '../actions';
+import {hole1hit, hole1up, hole2hit, hole2up, hole3hit, hole3up, hole4hit, hole4up, hole5hit, hole5up, hole6hit, hole6up, hole7hit, hole7up, hole8hit, hole8up, hole9hit, hole9up, healthDown, clockDown} from '../actions';
 import {useSelector, useDispatch} from 'react-redux';
 
-function Play({user}){
+function Play({user, setValues}){
   
   const attackValue = useSelector(state => state.attackValue)
+  const defenseValue = useSelector(state => state.defenseValue)
   const hole1 = useSelector(state => state.hole1)
   const hole2 = useSelector(state => state.hole2)
   const hole3 = useSelector(state => state.hole3)
@@ -23,12 +24,16 @@ function Play({user}){
   const [loaded, setLoaded] = useState(false);
   
   useEffect(()=>{
+    setValues(user)
     holeBeginTest()
   },[])
 
   useEffect(()=>{
     if (loaded){
       keypressListener()
+    }
+    return () => {
+      document.removeEventListener("keypress", hit)
     }
   },[...holeList])
 
@@ -60,7 +65,7 @@ function Play({user}){
     if (e.key===buttons[0]){
       if (hole1[1]>0){
         dispatch(hole1hit(attackValue))
-        dispatch(healthDown(hole1[0]))
+        if(defenseValue<hole1[0]){dispatch(healthDown(hole1[0]-defenseValue))}
       } else if (hole1[1]<=0){
         hitEmptyHole()
       }
@@ -68,7 +73,7 @@ function Play({user}){
     } else if (e.key===buttons[1]){
       if (hole2[1]>0){
         dispatch(hole2hit(attackValue))
-        dispatch(healthDown(hole2[0]))
+        if(defenseValue<hole2[0]){dispatch(healthDown(hole2[0]-defenseValue))}
       } else if (hole2[1]<=0){
         hitEmptyHole()
       }
@@ -76,7 +81,7 @@ function Play({user}){
     } else if (e.key===buttons[2]){
       if (hole3[1]>0){
         dispatch(hole3hit(attackValue))
-        dispatch(healthDown(hole3[0]))
+        if(defenseValue<hole3[0]){dispatch(healthDown(hole3[0]-defenseValue))}
       } else if (hole3[1]<=0){
         hitEmptyHole()
       }
@@ -84,7 +89,7 @@ function Play({user}){
     } else if (e.key===buttons[3]){
       if (hole4[1]>0){
         dispatch(hole4hit(attackValue))
-        dispatch(healthDown(hole4[0]))
+        if(defenseValue<hole4[0]){dispatch(healthDown(hole4[0]-defenseValue))}
       } else if (hole4[1]<=0){
         hitEmptyHole()
       }
@@ -92,15 +97,16 @@ function Play({user}){
     } else if (e.key===buttons[4]){
       if (hole5[1]>0){
         dispatch(hole5hit(attackValue))
-        dispatch(healthDown(hole5[0]))
+        if(defenseValue<hole5[0]){dispatch(healthDown(hole5[0]-defenseValue))}
       } else if (hole5[1]<=0){
         hitEmptyHole()
       }
 
     } else if (e.key===buttons[5]){
+      console.log("hitting hole 6");
       if (hole6[1]>0){
         dispatch(hole6hit(attackValue))
-        dispatch(healthDown(hole6[0]))
+        if(defenseValue<hole6[0]){dispatch(healthDown(hole6[0]-defenseValue))}
       } else if (hole6[1]<=0){
         hitEmptyHole()
       }
@@ -108,7 +114,7 @@ function Play({user}){
     } else if (e.key===buttons[6]){
       if (hole7[1]>0){
         dispatch(hole7hit(attackValue))
-        dispatch(healthDown(hole7[0]))
+        if(defenseValue<hole7[0]){dispatch(healthDown(hole7[0]-defenseValue))}
       } else if (hole7[1]<=0){
         hitEmptyHole()
       }
@@ -116,7 +122,7 @@ function Play({user}){
     } else if (e.key===buttons[7]){
       if (hole8[1]>0){
         dispatch(hole8hit(attackValue))
-        dispatch(healthDown(hole8[0]))
+        if(defenseValue<hole8[0]){dispatch(healthDown(hole8[0]-defenseValue))}
       } else if (hole8[1]<=0){
         hitEmptyHole()
       }
@@ -124,17 +130,19 @@ function Play({user}){
     } else if (e.key===buttons[8]){
       console.log(hole9[1]===0);
       if (hole9[1]>0){
+        console.log(defenseValue);
         dispatch(hole9hit(attackValue))
-        dispatch(healthDown(hole9[0]))
+        // if(defenseValue<hole9[0]){dispatch(healthDown(hole9[0]-defenseValue))}
+        dispatch(healthDown(hole9[0]-defenseValue))
       } else if (hole9[1]<=0){
         hitEmptyHole()
       }
     } else {
       console.log(e.key+' is not a valid button')
+      // document.addEventListener("keypress", hit)
     }
   }
   
-  // console.log(hole1);
 
 
   // function keyOutput(e){

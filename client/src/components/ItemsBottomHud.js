@@ -1,9 +1,14 @@
 // import {useState} from 'react'
+// import {useSelector, useDispatch} from 'react-redux';
 
 function ItemsBottomHud({user, allItems, handleLogout}){
 
   // const item2 = allItems.filter(item => item.id === user.item2)[0]
   // console.log(item1);
+
+  // const dispatch = useDispatch();
+  // const attackValue = useSelector(state => state.attackValue)
+  // const defenseValue = useSelector(state => state.defenseValue)
   
   if(!user){return <></>}else{
     const item1 = user.items.filter(item => item.id === user.item1)[0]

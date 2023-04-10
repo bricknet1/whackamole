@@ -54,6 +54,13 @@ export const attackValueSet = (number) => {
   }
 }
 
+export const defenseValueSet = (number) => {
+  return {
+    type: 'DEFENSEVALUESET',
+    payload: number
+  }
+}
+
 export const hole1up = (settings) => {
   return {
     type: 'HOLE1UP',

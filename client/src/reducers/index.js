@@ -2,6 +2,7 @@ import scoreReducer from "./score";
 import timeReducer from "./time";
 import healthReducer from "./health";
 import attackValueReducer from "./attack";
+import defenseValueReducer from "./defense";
 import hole1Reducer from "./hole1";
 import hole2Reducer from "./hole2";
 import hole3Reducer from "./hole3";
@@ -13,11 +14,13 @@ import hole8Reducer from "./hole8";
 import hole9Reducer from "./hole9";
 import { combineReducers } from "redux";
 
+
 const allReducers = combineReducers({
   score: scoreReducer,
   time: timeReducer,
   health: healthReducer,
   attackValue: attackValueReducer,
+  defenseValue: defenseValueReducer,
   hole1: hole1Reducer,
   hole2: hole2Reducer,
   hole3: hole3Reducer,

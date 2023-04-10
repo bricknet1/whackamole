@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import {useDispatch} from 'react-redux';
 import {healthSet, attackValueSet} from '../actions';
 
-function Login({ setUser, setLoginStates }) {
+function Login({ setUser, setValues }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const [error, setError] = useState("");
@@ -13,7 +13,7 @@ function Login({ setUser, setLoginStates }) {
     history.push("/signup");
   }
   
-  // const setLoginStates = (user) => {
+  // const setValues = (user) => {
   //   const item1 = user.items.filter(item => item.id === user.item1)[0]
   //   const item2 = user.items.filter(item => item.id === user.item2)[0]
   //   return(
@@ -39,7 +39,7 @@ function Login({ setUser, setLoginStates }) {
           res.json().then((user) => {
             setUser(user);
             history.push("/");
-            setLoginStates(user);
+            setValues(user);
           });
         } else {
           res.json().then((error) => setError(error.message));

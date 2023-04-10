@@ -1,7 +1,7 @@
 import { Route, Switch } from 'react-router-dom';
 import {useEffect, useState, useCallback} from 'react';
 import { useHistory } from 'react-router-dom';
-import {healthSet, attackValueSet} from './actions';
+import {healthSet, attackValueSet, defenseValueSet} from './actions';
 import {useDispatch} from 'react-redux';
 
 import Login from './components/Login.js';
@@ -23,8 +23,8 @@ function App() {
 
   const [user, setUser] = useState(null);
   const [allItems, setAllItems] = useState([]);
-  const [item1, setItem1] = useState({attack:0, category:'', cost:0, defense:0, description:'', health:0, id:0, name:''});
-  const [item2, setItem2] = useState({attack:0, category:'', cost:0, defense:0, description:'', health:0, id:0, name:''});
+  // const [item1, setItem1] = useState({attack:0, category:'', cost:0, defense:0, description:'', health:0, id:0, name:''});
+  // const [item2, setItem2] = useState({attack:0, category:'', cost:0, defense:0, description:'', health:0, id:0, name:''});
 
   const history = useHistory();
   const dispatch = useDispatch();
@@ -52,8 +52,8 @@ function App() {
         .then(data => {
           if(data===user){console.log("all good bro")}else{
             setUser(data)
-            setItem1(data.items.filter(item => item.id === data.item1)[0])
-            setItem2(data.items.filter(item => item.id === data.item2)[0])
+            // setItem1(data.items.filter(item => item.id === data.item1)[0])
+            // setItem2(data.items.filter(item => item.id === data.item2)[0])
           }
         })
       } else {
@@ -62,12 +62,13 @@ function App() {
     })
   }
 
-  const setLoginStates = (user) => {
+  const setValues = (user) => {
     const item1 = user.items.filter(item => item.id === user.item1)[0]
     const item2 = user.items.filter(item => item.id === user.item2)[0]
     return(
       dispatch(healthSet(10+(item1?item1.health:0)+(item2?item2.health:0))),
-      dispatch(attackValueSet(1+(item1?item1.attack:0)+(item2?item2.attack:0)))
+      dispatch(attackValueSet(1+(item1?item1.attack:0)+(item2?item2.attack:0))),
+      dispatch(defenseValueSet(1+(item1?item1.defense:0)+(item2?item2.defense:0)))
     )
   }
 
@@ -110,25 +111,25 @@ function App() {
         <div className='play-field'>
           <Switch>
             <Route path="/" exact>
-              {user?<Home user={user} setUser={setUser} handleLogout={handleLogout}/>:<Login setUser={setUser}/>}
+              {user?<Home user={user} handleLogout={handleLogout}/>:<Login setUser={setUser}/>}
             </Route>
             <Route path="/highscores" exact>
               <HighScores/>
             </Route>
             <Route path="/items" exact>
-              <Items user={user} setUser={setUser} allItems={allItems}/>
+              <Items user={user} setUser={setUser} allItems={allItems} setValues={setValues}/>
             </Route>
             <Route path="/play" exact>
-              <Play user={user}/>
+              <Play user={user} setValues={setValues}/>
             </Route>
             <Route path="/settings" exact>
               <Settings user={user} setUser={setUser}/>
             </Route>
             <Route path="/login" exact>
-              <Home user={user} setUser={setUser} handleLogout={handleLogout}/>
+              <Home user={user} handleLogout={handleLogout}/>
             </Route>
             <Route path="/signup" exact>
-              <Home user={user} setUser={setUser} handleLogout={handleLogout}/>
+              <Home user={user} handleLogout={handleLogout}/>
             </Route>
             {/* <Route path="/login" exact>
               <Login setUser={setUser}/>
@@ -164,16 +165,16 @@ function App() {
         <div className='play-field'>
           <Switch>
             <Route path="/" exact>
-              <Login setUser={setUser} setLoginStates={setLoginStates}/>
+              <Login setUser={setUser} setValues={setValues}/>
             </Route>
             <Route path="/login" exact>
-              <Login setUser={setUser} setLoginStates={setLoginStates}/>
+              <Login setUser={setUser} setValues={setValues}/>
             </Route>
             <Route path="/signup" exact>
-              <Signup setUser={setUser} setLoginStates={setLoginStates}/>
+              <Signup setUser={setUser} setValues={setValues}/>
             </Route>
             <Route path="*">
-              <Login setUser={setUser} setLoginStates={setLoginStates}/>
+              <Login setUser={setUser} setValues={setValues}/>
             </Route>
           </Switch>
         </div>
