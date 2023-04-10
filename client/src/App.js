@@ -151,11 +151,17 @@ function App() {
         <div className='top-hud'></div>
         <div className='play-field'>
           <Switch>
+            <Route path="/" exact>
+              <Login setUser={setUser}/>
+            </Route>
             <Route path="/login" exact>
               <Login setUser={setUser}/>
             </Route>
             <Route path="/signup" exact>
               <Signup setUser={setUser}/>
+            </Route>
+            <Route path="*">
+              <Login setUser={setUser}/>
             </Route>
           </Switch>
         </div>

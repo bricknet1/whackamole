@@ -1,4 +1,4 @@
-const timeReducer = (state=3, action) => {
+const timeReducer = (state=60, action) => {
   switch(action.type){
     case 'CLOCKUP':
       return state+action.payload;
