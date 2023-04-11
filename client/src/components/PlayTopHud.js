@@ -10,6 +10,7 @@ function PlayTopHud({user}){
   const time = useSelector(state => state.time)
   const score = useSelector(state => state.score)
   const health = useSelector(state => state.health)
+  const coins = useSelector(state => state.coins)
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -34,7 +35,7 @@ function PlayTopHud({user}){
     return(
       <div>
         <button className='button1' id='empty'>Score<br/>{score}</button>
-        <button className='button2' id='empty'>Coins<br/>{user.coins}</button>
+        <button className='button2' id='empty'>Coins<br/>{coins}</button>
         <button className='button3' id='empty'>Health<br/>{health}</button>
         <button className='button4' onClick={handleBack}>Time<br/>{time>0&&health>0?time:'Up'}</button>
       </div>

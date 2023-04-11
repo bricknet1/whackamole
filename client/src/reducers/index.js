@@ -1,6 +1,7 @@
 import scoreReducer from "./score";
 import timeReducer from "./time";
 import healthReducer from "./health";
+import coinsReducer from "./coins";
 import attackValueReducer from "./attack";
 import defenseValueReducer from "./defense";
 import enemiesReducer from "./enemies";
@@ -20,6 +21,7 @@ const allReducers = combineReducers({
   score: scoreReducer,
   time: timeReducer,
   health: healthReducer,
+  coins: coinsReducer,
   attackValue: attackValueReducer,
   defenseValue: defenseValueReducer,
   enemies: enemiesReducer,

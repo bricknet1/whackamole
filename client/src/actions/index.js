@@ -12,6 +12,13 @@ export const scoreSet = (number) => {
   }
 }
 
+export const coinsSet = (number) => {
+  return {
+    type: 'COINSSET',
+    payload: number
+  }
+}
+
 export const clockUp = (number) => {
   return {
     type: 'CLOCKUP',

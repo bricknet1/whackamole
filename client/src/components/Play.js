@@ -1,10 +1,10 @@
 import {useEffect, useState} from 'react';
-import {hole1hit, hole1up, hole2hit, hole2up, hole3hit, hole3up, hole4hit, hole4up, hole5hit, hole5up, hole6hit, hole6up, hole7hit, hole7up, hole8hit, hole8up, hole9hit, hole9up, healthDown, clockDown, scoreUp, scoreSet} from '../actions';
+import {hole1hit, hole1up, hole2hit, hole2up, hole3hit, hole3up, hole4hit, hole4up, hole5hit, hole5up, hole6hit, hole6up, hole7hit, hole7up, hole8hit, hole8up, hole9hit, hole9up, healthDown, clockDown, scoreUp, scoreSet, healthUp, clockUp} from '../actions';
 import {useSelector, useDispatch} from 'react-redux';
 import { useHistory } from 'react-router-dom';
 // import { useElapsedTime } from 'use-elapsed-time'
 
-function Play({user, setValues}){
+function Play({user, setValues, setUser}){
   
   const history = useHistory();
 
@@ -16,6 +16,7 @@ function Play({user, setValues}){
   const time = useSelector(state => state.time)
   const score = useSelector(state => state.score)
   const health = useSelector(state => state.health)
+  const coins = useSelector(state => state.coins)
   const attackValue = useSelector(state => state.attackValue)
   const defenseValue = useSelector(state => state.defenseValue)
   const hole1 = useSelector(state => state.hole1)
@@ -129,10 +130,38 @@ function Play({user, setValues}){
     setLoaded(true)
   }
 
+  function addCoins(){
+    const values = {"coins":coins+Math.ceil(tier/3)}
+    fetch(`/users/${user['id']}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(values)
+    })
+    .then(res => {
+      if (res.ok) {
+        res.json().then(data => {
+          setUser(data)
+          setValues(data)
+        })
+      } else {
+        res.json().then(error => console.log(error.message))
+      };
+    })
+  }
+
   function reward(){
-    const yes = randomTime(1,3)===1
-    if(yes){
-      console.log("reward");
+    const rewardType = randomTime(1,9);
+    if(rewardType===1){
+      addCoins();
+      console.log("coin reward");
+    } else if (rewardType===2){
+      dispatch(healthUp(Math.ceil(tier/3)))
+      console.log("health reward");
+    } else if (rewardType===3){
+      dispatch(clockUp(5))
+      console.log("time reward");
     } else {
       console.log("no reward");
     }

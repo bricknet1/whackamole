@@ -1,7 +1,7 @@
 import { Route, Switch } from 'react-router-dom';
 import {useEffect, useState, useCallback} from 'react';
 import { useHistory } from 'react-router-dom';
-import {healthSet, attackValueSet, defenseValueSet} from './actions';
+import {healthSet, attackValueSet, defenseValueSet, coinsSet} from './actions';
 import {useDispatch} from 'react-redux';
 
 import Login from './components/Login.js';
@@ -66,7 +66,8 @@ function App() {
     return(
       dispatch(healthSet(10+(item1?item1.health:0)+(item2?item2.health:0))),
       dispatch(attackValueSet(1+(item1?item1.attack:0)+(item2?item2.attack:0))),
-      dispatch(defenseValueSet((item1?item1.defense:0)+(item2?item2.defense:0)))
+      dispatch(defenseValueSet((item1?item1.defense:0)+(item2?item2.defense:0))),
+      dispatch(coinsSet(user.coins))
     )
   }
 
@@ -118,7 +119,7 @@ function App() {
               <Items user={user} setUser={setUser} allItems={allItems} setValues={setValues}/>
             </Route>
             <Route path="/play" exact>
-              <Play user={user} setValues={setValues}/>
+              <Play user={user} setUser={setUser} setValues={setValues}/>
             </Route>
             <Route path="/settings" exact>
               <Settings user={user} setUser={setUser}/>
