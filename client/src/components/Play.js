@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {hole1hit, hole1up, hole2hit, hole2up, hole3hit, hole3up, hole4hit, hole4up, hole5hit, hole5up, hole6hit, hole6up, hole7hit, hole7up, hole8hit, hole8up, hole9hit, hole9up, healthDown, clockDown, scoreUp} from '../actions';
+import {hole1hit, hole1up, hole2hit, hole2up, hole3hit, hole3up, hole4hit, hole4up, hole5hit, hole5up, hole6hit, hole6up, hole7hit, hole7up, hole8hit, hole8up, hole9hit, hole9up, healthDown, clockDown, scoreUp, scoreSet} from '../actions';
 import {useSelector, useDispatch} from 'react-redux';
 import { useHistory } from 'react-router-dom';
 // import { useElapsedTime } from 'use-elapsed-time'
@@ -36,7 +36,18 @@ function Play({user, setValues}){
 
   useEffect(()=>{
     setValues(user)
-    holeBeginTest()
+    dispatch(hole1up([0,0,0]))
+    dispatch(hole2up([0,0,0]))
+    dispatch(hole3up([0,0,0]))
+    dispatch(hole4up([0,0,0]))
+    dispatch(hole5up([0,0,0]))
+    dispatch(hole6up([0,0,0]))
+    dispatch(hole7up([0,0,0]))
+    dispatch(hole8up([0,0,0]))
+    dispatch(hole9up([0,0,0]))
+    dispatch(scoreSet(0))
+    holeBegin()
+    return(dispatch(scoreSet(0)))
   },[])
 
   useEffect(()=>{
@@ -104,7 +115,7 @@ function Play({user, setValues}){
     raiseTierClock()
   }, 20000)
 
-  function holeBeginTest(){
+  function holeBegin(){
     hole1Clock()
     hole2Clock()
     hole3Clock()

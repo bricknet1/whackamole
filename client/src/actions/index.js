@@ -5,6 +5,13 @@ export const scoreUp = (number) => {
   }
 }
 
+export const scoreSet = (number) => {
+  return {
+    type: 'SCORESET',
+    payload: number
+  }
+}
+
 export const clockUp = (number) => {
   return {
     type: 'CLOCKUP',
