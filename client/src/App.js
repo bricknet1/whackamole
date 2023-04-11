@@ -39,9 +39,7 @@ function App() {
   function fetchItems(){
     fetch('/items')
     .then(res => res.json())
-    .then(data => {
-      setAllItems(data)
-    })
+    .then(data => setAllItems(data))
   }
 
   function fetchUser (){

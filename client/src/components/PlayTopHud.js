@@ -16,12 +16,16 @@ function PlayTopHud({user}){
     const playClock = setInterval(()=>{
       dispatch(clockDown(1))
     }, 1000)
+    if(time<1){
+      clearInterval(playClock)
+    }
     return () => {
       clearInterval(playClock)
       dispatch(clockSet(60))
     }
   },[])
   
+
   function handleBack(){
     history.push('/')
   }

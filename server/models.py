@@ -89,3 +89,12 @@ class UserItem(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     item_id = db.Column(db.Integer, db.ForeignKey('items.id'))
+
+class Enemy(db.Model, SerializerMixin):
+    __tablename__ = 'enemies'
+
+    id = db.Column(db.Integer, primary_key=True)
+    tier = db.Column(db.Integer)
+    attack = db.Column(db.Integer)
+    health = db.Column(db.Integer)
+    points = db.Column(db.Integer)

@@ -4,7 +4,7 @@ from flask import request, make_response, session, jsonify, abort
 from flask_restful import Resource
 from werkzeug.exceptions import NotFound, Unauthorized
 
-from models import User, Score, Item, UserItem
+from models import User, Score, Item, UserItem, Enemy
 from config import app, db, api
 
 class Signup(Resource):
@@ -103,6 +103,15 @@ class UserItems(Resource):
         db.session.commit()
         return make_response(new.to_dict(), 201)
 api.add_resource(UserItems, '/useritems')
+
+class Enemies(Resource):
+    def get(self):
+        try:
+            enemies = [enemy.to_dict() for enemy in Enemy.query.all()]
+            return make_response(enemies, 200)
+        except Exception as e:
+            abort(404, [e.__str__()])
+api.add_resource(Enemies, '/enemies')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

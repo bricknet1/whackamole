@@ -1,4 +1,4 @@
-export const increment = (number) => {
+export const scoreUp = (number) => {
   return {
     type: 'SCOREUP',
     payload: number

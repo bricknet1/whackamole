@@ -3,6 +3,7 @@ import timeReducer from "./time";
 import healthReducer from "./health";
 import attackValueReducer from "./attack";
 import defenseValueReducer from "./defense";
+import enemiesReducer from "./enemies";
 import hole1Reducer from "./hole1";
 import hole2Reducer from "./hole2";
 import hole3Reducer from "./hole3";
@@ -21,6 +22,7 @@ const allReducers = combineReducers({
   health: healthReducer,
   attackValue: attackValueReducer,
   defenseValue: defenseValueReducer,
+  enemies: enemiesReducer,
   hole1: hole1Reducer,
   hole2: hole2Reducer,
   hole3: hole3Reducer,

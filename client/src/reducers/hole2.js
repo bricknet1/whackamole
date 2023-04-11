@@ -1,9 +1,9 @@
-const hole2Reducer = (state=[0,0], action) => {
+const hole2Reducer = (state=[0,0,0], action) => {
   switch(action.type){
     case 'HOLE2UP':
       return state=action.payload;
     case 'HOLE2HIT':
-      return state=[state[0],(state[1]-action.payload)];
+      return state=[state[0],(state[1]-action.payload),state[2]];
     default:
       return state;
   }
