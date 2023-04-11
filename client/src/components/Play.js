@@ -15,6 +15,7 @@ function Play({user, setValues}){
 
   const time = useSelector(state => state.time)
   const score = useSelector(state => state.score)
+  const health = useSelector(state => state.health)
   const attackValue = useSelector(state => state.attackValue)
   const defenseValue = useSelector(state => state.defenseValue)
   const hole1 = useSelector(state => state.hole1)
@@ -343,7 +344,7 @@ function Play({user, setValues}){
   }
 
   if(!user){return <></>}else{
-    if(time<1){
+    if(time<1 || health<1){
       return(
         <div className='home-body'><h1>Game Over</h1><h2>Score: {score}</h2><button onClick={handleBack}>Back</button><br/><br/><br/><br/>Click back to save your score to the leaderboard!</div>
       )

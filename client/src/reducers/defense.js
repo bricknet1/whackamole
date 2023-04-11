@@ -1,4 +1,4 @@
-const defenseValueReducer = (state = 1, action) => {
+const defenseValueReducer = (state = 0, action) => {
   switch(action.type){
     case 'DEFENSEVALUESET':
       return state=action.payload;

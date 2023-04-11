@@ -66,7 +66,7 @@ function App() {
     return(
       dispatch(healthSet(10+(item1?item1.health:0)+(item2?item2.health:0))),
       dispatch(attackValueSet(1+(item1?item1.attack:0)+(item2?item2.attack:0))),
-      dispatch(defenseValueSet(1+(item1?item1.defense:0)+(item2?item2.defense:0)))
+      dispatch(defenseValueSet((item1?item1.defense:0)+(item2?item2.defense:0)))
     )
   }
 
