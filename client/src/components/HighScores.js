@@ -10,13 +10,11 @@ function HighScores(){
     .then(data => setHighScores(data))
   },[])
 
-  console.log(highScores);
-
   const scoreList = highScores.map((hs, index)=>{
     const {score, user} = hs;
     const {username} = user;
     return (
-      <p className='scorelist'>{index+1}: {username} {score} points</p>
+      <p key={index} className='scorelist'>{index+1}: {username} {score} points</p>
     )
   })
 

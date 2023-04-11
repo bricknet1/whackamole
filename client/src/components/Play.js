@@ -77,10 +77,8 @@ function Play({user, setValues, setUser}){
   //   console.log(hole1);
   //   if(hole1[1]>0){console.log('timeout')}
   // }
-  
-  let hole1timeout;
 
-  const hole1Clock = ()=> hole1timeout = setTimeout(()=>{
+  const hole1Clock = ()=> setTimeout(()=>{
     dispatch(hole1up(randomEnemy(tier)))
     // setTimeout(()=>{
     //   clockPenalty()
@@ -369,7 +367,7 @@ function Play({user, setValues, setUser}){
   }
 
   function emptyHoles(){
-    console.log('emptying');
+    // console.log('emptying');
     // document.removeEventListener("keypress", hit)
     // clearTimeout(hole1timeout)
     dispatch(hole1up([0,0,0]))

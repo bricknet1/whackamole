@@ -83,12 +83,10 @@ function App() {
     })
   }
 
-  console.log(user);
-
   return (
     <div className='app'>
       <div className='header'>
-        <h1>Whack-a-mo-le</h1> 
+        <h1>Gwhac-a-mo-le</h1> 
       </div>
       {user?<div className='main-container'>
         <div className='top-hud'>

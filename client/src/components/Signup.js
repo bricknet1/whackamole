@@ -55,7 +55,7 @@ function Signup({setUser, setValues}) {
     }
   })
 
-  console.log(Object.keys(formik.errors).length);
+  // console.log(Object.keys(formik.errors).length);
 
   return (
     <div className='signup-login'>

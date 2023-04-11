@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useFormik } from "formik";
-import {useDispatch} from 'react-redux';
-import {healthSet, attackValueSet} from '../actions';
+// import {useDispatch} from 'react-redux';
+// import {healthSet, attackValueSet} from '../actions';
 
 function Login({ setUser, setValues }) {
   const history = useHistory();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const [error, setError] = useState("");
   
   function handleSignup() {
@@ -79,7 +79,7 @@ function Login({ setUser, setValues }) {
       <br />
       <br />
       <br />
-      <p>New to Whackamolé?</p>
+      <p>New to Whack-a-mo-le?</p>
       <button className="loginsignupbtn" onClick={handleSignup}>
         Signup Instead
       </button>
