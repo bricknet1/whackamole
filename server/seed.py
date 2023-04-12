@@ -17,7 +17,7 @@ with app.app_context():
     Enemy.query.delete()
 
     print('Creating Users')
-    usernames = ['TophDoggy', 'SAAAAAM', 'Ari_Potter', 'Queen Bee', 'D Bear', 'Liana Din', 'EmileyRulz', 'Wyle', 'Schnyle', 'Stove', 'Cherrence', 'Trasha']
+    usernames = ['TophDoggy', 'SAAAAAM', 'Ari_Potter', 'Queen Bee', 'D Bear', 'Liana Din', 'EmileyRulz', 'Wyle', 'Schnyle', 'Stove', 'Twocupterry', 'Trasha']
     users = []
     user1 = User(
         username='bricknet',

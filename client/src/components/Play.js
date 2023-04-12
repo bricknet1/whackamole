@@ -1,10 +1,12 @@
 import {useEffect, useState} from 'react';
-import {hole1hit, hole1up, hole2hit, hole2up, hole3hit, hole3up, hole4hit, hole4up, hole5hit, hole5up, hole6hit, hole6up, hole7hit, hole7up, hole8hit, hole8up, hole9hit, hole9up, healthDown, clockDown, scoreUp, scoreSet, healthUp, clockUp} from '../actions';
+import {hole1hit, hole1up, hole2hit, hole2up, hole3hit, hole3up, hole4hit, hole4up, hole5hit, hole5up, hole6hit, hole6up, hole7hit, hole7up, hole8hit, hole8up, hole9hit, hole9up, healthDown, clockDown, scoreUp, scoreSet, healthUp, clockUp, coinsSet, healthSet} from '../actions';
 import {useSelector, useDispatch} from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import avocado1 from '../images/avocado1.png';
+import avocado2 from '../images/avocado2.png';
 // import { useElapsedTime } from 'use-elapsed-time'
 
-function Play({user, setValues, setUser}){
+function Play({user, setValues, setUser, maxHealth}){
   
   const history = useHistory();
 
@@ -141,7 +143,7 @@ function Play({user, setValues, setUser}){
       if (res.ok) {
         res.json().then(data => {
           setUser(data)
-          setValues(data)
+          dispatch(coinsSet(data.coins))
         })
       } else {
         res.json().then(error => console.log(error.message))
@@ -151,11 +153,21 @@ function Play({user, setValues, setUser}){
 
   function reward(){
     const rewardType = randomTime(1,9);
+    // const rewardType = 2;
     if(rewardType===1){
       addCoins();
       console.log("coin reward");
     } else if (rewardType===2){
-      dispatch(healthUp(Math.ceil(tier/3)))
+      // console.log("current health: "+health);
+      // console.log("modified health: "+(health+(Math.ceil(tier/3))));
+      // console.log("max health: "+maxHealth);
+      // console.log("health should update: "+((health+(Math.ceil(tier/3)))<=maxHealth));
+      // console.log("health should be at max: "+((health+(Math.ceil(tier/3)))>maxHealth));
+      if ((health+(Math.ceil(tier/3)))>maxHealth){
+        dispatch(healthSet(maxHealth))
+      } else if ((health+(Math.ceil(tier/3)))<=maxHealth) {
+        dispatch(healthUp(Math.ceil(tier/3)))
+      }
       console.log("health reward");
     } else if (rewardType===3){
       dispatch(clockUp(5))
@@ -382,6 +394,12 @@ function Play({user, setValues, setUser}){
     dispatch(hole9up([0,0,0]))
   }
 
+  const avocadoImages = [avocado1, avocado2]
+
+  const randomAvocado = () => {
+    return (avocadoImages[randomTime(0,(avocadoImages.length-1))])
+  }
+
   if(!user){return <></>}else{
     if(time<1 || health<1){
       return(
@@ -390,16 +408,16 @@ function Play({user, setValues, setUser}){
     }else{
       return(
         <div>
-          <p className='settings-p'>Game On</p>
-          <button className='hole' id='hole1' value='numpad1' onClick={handleClick}>{hole1[1]>0?hole1[0]+"/"+hole1[1]:''}</button>
-          <button className='hole' id='hole2' value='numpad2' onClick={handleClick}>{hole2[1]>0?hole2[0]+"/"+hole2[1]:''}</button>
-          <button className='hole' id='hole3' value='numpad3' onClick={handleClick}>{hole3[1]>0?hole3[0]+"/"+hole3[1]:''}</button>
-          <button className='hole' id='hole4' value='numpad4' onClick={handleClick}>{hole4[1]>0?hole4[0]+"/"+hole4[1]:''}</button>
-          <button className='hole' id='hole5' value='numpad5' onClick={handleClick}>{hole5[1]>0?hole5[0]+"/"+hole5[1]:''}</button>
-          <button className='hole' id='hole6' value='numpad6' onClick={handleClick}>{hole6[1]>0?hole6[0]+"/"+hole6[1]:''}</button>
-          <button className='hole' id='hole7' value='numpad7' onClick={handleClick}>{hole7[1]>0?hole7[0]+"/"+hole7[1]:''}</button>
-          <button className='hole' id='hole8' value='numpad8' onClick={handleClick}>{hole8[1]>0?hole8[0]+"/"+hole8[1]:''}</button>
-          <button className='hole' id='hole9' value='numpad9' onClick={handleClick}>{hole9[1]>0?hole9[0]+"/"+hole9[1]:''}</button>
+          <p className='settings-p'>Wave {tier}</p>
+          <button className='hole' id='hole1' value='numpad1' onClick={handleClick}>{hole1[1]>0?<><img className='enemyImage' alt='enemy' src={randomAvocado()}/><div className='holeText'>{hole1[0]+"/"+hole1[1]}</div></>:''}</button>
+          <button className='hole' id='hole2' value='numpad2' onClick={handleClick}>{hole2[1]>0?<><img className='enemyImage' alt='enemy' src={randomAvocado()}/><div className='holeText'>{hole2[0]+"/"+hole2[1]}</div></>:''}</button>
+          <button className='hole' id='hole3' value='numpad3' onClick={handleClick}>{hole3[1]>0?<><img className='enemyImage' alt='enemy' src={randomAvocado()}/><div className='holeText'>{hole3[0]+"/"+hole3[1]}</div></>:''}</button>
+          <button className='hole' id='hole4' value='numpad4' onClick={handleClick}>{hole4[1]>0?<><img className='enemyImage' alt='enemy' src={randomAvocado()}/><div className='holeText'>{hole4[0]+"/"+hole4[1]}</div></>:''}</button>
+          <button className='hole' id='hole5' value='numpad5' onClick={handleClick}>{hole5[1]>0?<><img className='enemyImage' alt='enemy' src={randomAvocado()}/><div className='holeText'>{hole5[0]+"/"+hole5[1]}</div></>:''}</button>
+          <button className='hole' id='hole6' value='numpad6' onClick={handleClick}>{hole6[1]>0?<><img className='enemyImage' alt='enemy' src={randomAvocado()}/><div className='holeText'>{hole6[0]+"/"+hole6[1]}</div></>:''}</button>
+          <button className='hole' id='hole7' value='numpad7' onClick={handleClick}>{hole7[1]>0?<><img className='enemyImage' alt='enemy' src={randomAvocado()}/><div className='holeText'>{hole7[0]+"/"+hole7[1]}</div></>:''}</button>
+          <button className='hole' id='hole8' value='numpad8' onClick={handleClick}>{hole8[1]>0?<><img className='enemyImage' alt='enemy' src={randomAvocado()}/><div className='holeText'>{hole8[0]+"/"+hole8[1]}</div></>:''}</button>
+          <button className='hole' id='hole9' value='numpad9' onClick={handleClick}>{hole9[1]>0?<><img className='enemyImage' alt='enemy' src={randomAvocado()}/><div className='holeText'>{hole9[0]+"/"+hole9[1]}</div></>:''}</button>
           {/* {holeRender} */}
         </div>
       )

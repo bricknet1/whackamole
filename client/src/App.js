@@ -23,6 +23,7 @@ function App() {
 
   const [user, setUser] = useState(null);
   const [allItems, setAllItems] = useState([]);
+  const [maxHealth, setMaxHealth] = useState(10);
   // const [item1, setItem1] = useState({attack:0, category:'', cost:0, defense:0, description:'', health:0, id:0, name:''});
   // const [item2, setItem2] = useState({attack:0, category:'', cost:0, defense:0, description:'', health:0, id:0, name:''});
 
@@ -65,6 +66,7 @@ function App() {
     const item2 = user.items.filter(item => item.id === user.item2)[0]
     return(
       dispatch(healthSet(10+(item1?item1.health:0)+(item2?item2.health:0))),
+      setMaxHealth(10+(item1?item1.health:0)+(item2?item2.health:0)),
       dispatch(attackValueSet(1+(item1?item1.attack:0)+(item2?item2.attack:0))),
       dispatch(defenseValueSet((item1?item1.defense:0)+(item2?item2.defense:0))),
       dispatch(coinsSet(user.coins))
@@ -117,7 +119,7 @@ function App() {
               <Items user={user} setUser={setUser} allItems={allItems} setValues={setValues}/>
             </Route>
             <Route path="/play" exact>
-              <Play user={user} setUser={setUser} setValues={setValues}/>
+              <Play user={user} setUser={setUser} setValues={setValues} maxHealth={maxHealth}/>
             </Route>
             <Route path="/settings" exact>
               <Settings user={user} setUser={setUser}/>

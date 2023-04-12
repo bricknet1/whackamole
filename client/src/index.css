@@ -264,3 +264,23 @@ input{
   left: calc(50% - 100px/2);
   top: calc(50% - 100px/2);
 } */
+
+.enemyImage{
+  position: absolute;
+  border-radius: 50px;
+  width: 100px;
+  height: 100px;
+  z-index: 0;
+  left: calc(50% - 100px/2);
+  top: calc(50% - 100px/2);
+  opacity: 50%;
+}
+
+.holeText{
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  z-index: 1;
+  left: calc(50% - 100px/2);
+  top: calc(95% - 100px/2);
+}
