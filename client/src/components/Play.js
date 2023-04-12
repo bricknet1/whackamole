@@ -332,7 +332,8 @@ function Play({user, setValues, setUser}){
 
 
   function handleClick(e){
-    console.log('click '+e.target.value);
+    const keyEvent = new KeyboardEvent("keypress", {key:user[e.target.value]})
+    document.dispatchEvent(keyEvent)
   }
 
 
