@@ -1,7 +1,11 @@
+import buttonSound from '../sounds/button.wav';
 
 function SettingsBottomHud({handleLogout, user}){
 
+  const buttonSoundPlay = new Audio(buttonSound);
+
   function handleDelete(){
+    buttonSoundPlay.play()
     if(window.confirm("Are you sure you want to delete your account? This can not be undone!")){
       fetch(`/users/${user['id']}`, {
         method: "DELETE"

@@ -1,12 +1,16 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useFormik } from "formik";
+import buttonSound from '../sounds/button.wav';
 
 function Login({ setUser, setValues }) {
   const history = useHistory();
   const [error, setError] = useState("");
+
+  const buttonSoundPlay = new Audio(buttonSound);
   
   function handleSignup() {
+    buttonSoundPlay.play()
     history.push("/signup");
   }
 
@@ -16,6 +20,7 @@ function Login({ setUser, setValues }) {
       password: "",
     },
     onSubmit: (values) => {
+      buttonSoundPlay.play()
       fetch("/login", {
         method: "POST",
         headers: {

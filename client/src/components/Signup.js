@@ -2,12 +2,16 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useFormik } from "formik";
 import * as yup from "yup";
+import buttonSound from '../sounds/button.wav';
 
 function Signup({setUser, setValues}) {
   const history = useHistory();
   const [error, setError] = useState('');
 
+  const buttonSoundPlay = new Audio(buttonSound);
+
   function handleLogin(){
+    buttonSoundPlay.play()
     history.push('/login')
   }
 
@@ -34,6 +38,7 @@ function Signup({setUser, setValues}) {
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: (values) => {
+      buttonSoundPlay.play()
       fetch('/signup', {
         method: 'POST',
         headers: {

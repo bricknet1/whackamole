@@ -4,6 +4,8 @@ import { useHistory } from 'react-router-dom';
 import {healthSet, attackValueSet, defenseValueSet, coinsSet, setEnemies} from './actions';
 import {useDispatch} from 'react-redux';
 
+import button3Sound from './sounds/button3.wav';
+
 import Login from './components/Login.js';
 import Signup from './components/Signup.js';
 import Home from './components/Home.js';
@@ -27,6 +29,8 @@ function App() {
 
   const history = useHistory();
   const dispatch = useDispatch();
+
+  const button3SoundPlay = new Audio(button3Sound);
 
   const userFetch = useCallback(fetchUser, [history]);
 
@@ -76,6 +80,7 @@ function App() {
   }
 
   function handleLogout(){
+    button3SoundPlay.play()
     fetch('/logout', {
       method: "DELETE"
     })

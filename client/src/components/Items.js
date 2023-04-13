@@ -1,9 +1,12 @@
 import {useState} from 'react'
+import buttonSound from '../sounds/button.wav';
 
 function Items({user, setUser, allItems, setValues}){
 
   const [itemsToDisplay, setItemsToDisplay] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
+
+  const buttonSoundPlay = new Audio(buttonSound);
 
   function handleMenu(e){
     const filtered = allItems.filter(item => item.category === e.target.value)
@@ -31,6 +34,7 @@ function Items({user, setUser, allItems, setValues}){
   }
 
   function handleBuy(e){
+    
     const selected_item = parseInt(e.target.value)
     const cost = allItems.filter(item => item.id === selected_item)[0].cost
     const newCoins = (user['coins'])-cost
@@ -50,6 +54,7 @@ function Items({user, setUser, allItems, setValues}){
   }
 
   function handleUnequip(e){
+    buttonSoundPlay.play()
     const selected_item = parseInt(e.target.value)
     let values
     if(selected_item===user['item1']){values = {"item1":null}}
@@ -58,6 +63,7 @@ function Items({user, setUser, allItems, setValues}){
   }
 
   function handleEquip(itemId){
+    buttonSoundPlay.play()
     setSelectedItem(itemId);
   }
 
@@ -69,6 +75,7 @@ function Items({user, setUser, allItems, setValues}){
       handleEquip(id);
     }
     function handleModalButton(e){
+      buttonSoundPlay.play()
       const slot = e.target.value;
       let values
       if(slot === "1"){values = {"item1":id}}

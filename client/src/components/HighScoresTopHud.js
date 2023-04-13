@@ -1,10 +1,14 @@
 import { useHistory } from 'react-router-dom';
+import buttonSound from '../sounds/button.wav';
 
 function HighScoresTopHud(){
 
   const history = useHistory();
 
+  const buttonSoundPlay = new Audio(buttonSound);
+
   function handleBack(){
+    buttonSoundPlay.play()
     history.push('/')
   }
 

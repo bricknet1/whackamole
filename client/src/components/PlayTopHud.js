@@ -2,10 +2,13 @@ import { useHistory } from 'react-router-dom';
 import {useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {clockDown, clockSet, healthSet} from '../actions';
+import buttonSound from '../sounds/button.wav';
 
 function PlayTopHud({user, maxHealth}){
 
   const history = useHistory();
+
+  const buttonSoundPlay = new Audio(buttonSound);
 
   const time = useSelector(state => state.time)
   const score = useSelector(state => state.score)
@@ -26,6 +29,7 @@ function PlayTopHud({user, maxHealth}){
   
 
   function handleBack(){
+    buttonSoundPlay.play()
     history.push('/')
   }
   

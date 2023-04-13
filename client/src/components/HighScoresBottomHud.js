@@ -1,10 +1,14 @@
 import {useState} from 'react'
+import buttonSound from '../sounds/button.wav';
 
 function HighScoresBottomHud({handleLogout}){
 
   const [hiPete, setHiPete] = useState(false);
 
+  const buttonSoundPlay = new Audio(buttonSound);
+
   function handlePete(){
+    buttonSoundPlay.play()
     setHiPete(current => !current)
   }
 

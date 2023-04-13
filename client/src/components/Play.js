@@ -12,6 +12,7 @@ import hitSound from '../sounds/hit.wav';
 import timeSound from '../sounds/time.wav';
 import healthSound from '../sounds/health.wav';
 import coinSound from '../sounds/coin.wav';
+import buttonSound from '../sounds/button.wav';
 
 function Play({user, setValues, setUser, maxHealth, enemySetter}){
   
@@ -27,6 +28,7 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
   const timeSoundPlay = new Audio(timeSound);
   const healthSoundPlay = new Audio(healthSound);
   const coinSoundPlay = new Audio(coinSound);
+  const buttonSoundPlay = new Audio(buttonSound);
 
   const time = useSelector(state => state.time)
   const score = useSelector(state => state.score)
@@ -372,6 +374,7 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
   }
 
   function handleBack(){
+    buttonSoundPlay.play()
     const values = {"score":score, "id":user.id}
     fetch('/highscores', {
       method: 'POST',
