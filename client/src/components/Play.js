@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useState, useRef} from 'react';
 import {hole1hit, hole1up, hole2hit, hole2up, hole3hit, hole3up, hole4hit, hole4up, hole5hit, hole5up, hole6hit, hole6up, hole7hit, hole7up, hole8hit, hole8up, hole9hit, hole9up, healthDown, clockDown, scoreUp, scoreSet, healthUp, clockUp, coinsSet, healthSet} from '../actions';
 import {useSelector, useDispatch} from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -19,6 +19,7 @@ function Play({user, setValues, setUser, maxHealth}){
 
   const [loaded, setLoaded] = useState(false);
   const [tier, setTier] = useState(1);
+  const [shouldAddListener, setShouldAddListener] = useState(true);
 
   const emptySoundPlay = new Audio(emptySound);
   const loseSoundPlay = new Audio(loseSound);
@@ -45,6 +46,8 @@ function Play({user, setValues, setUser, maxHealth}){
   const enemies = useSelector(state => state.enemies)
 
   const dispatch = useDispatch();
+
+  const timeoutsRef = useRef([]);
   
   const buttons = [user['numpad1'], user['numpad2'], user['numpad3'], user['numpad4'], user['numpad5'], user['numpad6'], user['numpad7'], user['numpad8'], user['numpad9']]
   
@@ -67,13 +70,22 @@ function Play({user, setValues, setUser, maxHealth}){
   },[])
 
   useEffect(()=>{
-    if (loaded){
+    if (loaded && shouldAddListener){
       keypressListener()
     }
     return () => {
       document.removeEventListener("keypress", hit)
     }
-  },[...holeList])
+  },[...holeList, shouldAddListener])
+
+  useEffect(() => {
+    if ((time <= 0 || health <= 0) && shouldAddListener) {
+      timeoutsRef.current.forEach(timeoutId => clearTimeout(timeoutId));
+      emptyHoles()
+      setShouldAddListener(false)
+      loseSoundPlay.play()
+    }
+  }, [time, health]);
 
   function randomEnemy(tier){
     let availableEnemies = []
@@ -88,33 +100,60 @@ function Play({user, setValues, setUser, maxHealth}){
   }
   
 
-  const hole1Clock = ()=> setTimeout(()=>{
-    dispatch(hole1up(randomEnemy(tier)))
-  }, randomTime(1000,10000))
-  const hole2Clock = ()=> setTimeout(()=>{
-    dispatch(hole2up(randomEnemy(tier)))
-  }, randomTime(1000,10000))
-  const hole3Clock = ()=> setTimeout(()=>{
-    dispatch(hole3up(randomEnemy(tier)))
-  }, randomTime(1000,10000))
-  const hole4Clock = ()=> setTimeout(()=>{
-    dispatch(hole4up(randomEnemy(tier)))
-  }, randomTime(1000,10000))
-  const hole5Clock = ()=> setTimeout(()=>{
-    dispatch(hole5up(randomEnemy(tier)))
-  }, randomTime(1000,10000))
-  const hole6Clock = ()=> setTimeout(()=>{
-    dispatch(hole6up(randomEnemy(tier)))
-  }, randomTime(1000,10000))
-  const hole7Clock = ()=> setTimeout(()=>{
-    dispatch(hole7up(randomEnemy(tier)))
-  }, randomTime(1000,10000))
-  const hole8Clock = ()=> setTimeout(()=>{
-    dispatch(hole8up(randomEnemy(tier)))
-  }, randomTime(1000,10000))
-  const hole9Clock = ()=> setTimeout(()=>{
-    dispatch(hole9up(randomEnemy(tier)))
-  }, randomTime(1000,10000))
+  const hole1Clock = ()=> {
+    const timeoutId = setTimeout(()=>{
+      dispatch(hole1up(randomEnemy(tier)))
+    }, randomTime(1000,10000))
+    timeoutsRef.current.push(timeoutId)
+  }
+  const hole2Clock = ()=> {
+    const timeoutId = setTimeout(()=>{
+      dispatch(hole2up(randomEnemy(tier)))
+    }, randomTime(1000,10000))
+    timeoutsRef.current.push(timeoutId)
+  }
+  const hole3Clock = ()=> {
+    const timeoutId = setTimeout(()=>{
+      dispatch(hole3up(randomEnemy(tier)))
+    }, randomTime(1000,10000))
+    timeoutsRef.current.push(timeoutId)
+  }
+  const hole4Clock = ()=> {
+    const timeoutId = setTimeout(()=>{
+      dispatch(hole4up(randomEnemy(tier)))
+    }, randomTime(1000,10000))
+    timeoutsRef.current.push(timeoutId)
+  }
+  const hole5Clock = ()=> {
+    const timeoutId = setTimeout(()=>{
+      dispatch(hole5up(randomEnemy(tier)))
+    }, randomTime(1000,10000))
+    timeoutsRef.current.push(timeoutId)
+  }
+  const hole6Clock = ()=> {
+    const timeoutId = setTimeout(()=>{
+      dispatch(hole6up(randomEnemy(tier)))
+    }, randomTime(1000,10000))
+    timeoutsRef.current.push(timeoutId)
+  }
+  const hole7Clock = ()=> {
+    const timeoutId = setTimeout(()=>{
+      dispatch(hole7up(randomEnemy(tier)))
+    }, randomTime(1000,10000))
+    timeoutsRef.current.push(timeoutId)
+  }
+  const hole8Clock = ()=> {
+    const timeoutId = setTimeout(()=>{
+      dispatch(hole8up(randomEnemy(tier)))
+    }, randomTime(1000,10000))
+    timeoutsRef.current.push(timeoutId)
+  }
+  const hole9Clock = ()=> {
+    const timeoutId = setTimeout(()=>{
+      dispatch(hole9up(randomEnemy(tier)))
+    }, randomTime(1000,10000))
+    timeoutsRef.current.push(timeoutId)
+  }
 
   const raiseTierClock = ()=> setTimeout(()=>{
     setTier(current=>current+1)
@@ -163,8 +202,6 @@ function Play({user, setValues, setUser, maxHealth}){
       addCoins();
       console.log("coin reward");
     } else if (rewardType===10 || rewardType===11 || rewardType===12){
-      console.log(health);
-      console.log(health+(Math.ceil(tier/3)));
       healthSoundPlay.play();
       if ((health+(Math.ceil(tier/3)))>maxHealth){
         dispatch(healthSet(maxHealth));
@@ -195,10 +232,7 @@ function Play({user, setValues, setUser, maxHealth}){
 
   function hit(e){
     document.removeEventListener("keypress", hit)
-    console.log("time "+time);
-    console.log("health "+health);
     if (time<1 || health<1){
-      document.removeEventListener("keypress", hit)
       return(loseSoundPlay.play())
     } else if (time>0 && health>0){
 
@@ -345,7 +379,6 @@ function Play({user, setValues, setUser, maxHealth}){
     })
     .then(res => {
       if (res.ok) {
-        emptyHoles()
         history.push('/highscores')
       } else {
         res.json().then(error => console.log(error.message))
@@ -395,7 +428,6 @@ function Play({user, setValues, setUser, maxHealth}){
           <button className='hole' id='hole7' value='numpad7' onClick={handleClick}>{hole7[1]>0?<><img className='enemyImage' alt='enemy' src={randomAvocado()}/><div className='holeText'>{hole7[0]+"/"+hole7[1]}</div></>:''}</button>
           <button className='hole' id='hole8' value='numpad8' onClick={handleClick}>{hole8[1]>0?<><img className='enemyImage' alt='enemy' src={randomAvocado()}/><div className='holeText'>{hole8[0]+"/"+hole8[1]}</div></>:''}</button>
           <button className='hole' id='hole9' value='numpad9' onClick={handleClick}>{hole9[1]>0?<><img className='enemyImage' alt='enemy' src={randomAvocado()}/><div className='holeText'>{hole9[0]+"/"+hole9[1]}</div></>:''}</button>
-          {/* {holeRender} */}
         </div>
       )
     }
