@@ -96,7 +96,7 @@ function App() {
               <ItemsTopHud user={user}/>
             </Route>
             <Route path="/play" exact>
-              <PlayTopHud user={user}/>
+              <PlayTopHud user={user} maxHealth={maxHealth}/>
             </Route>
             <Route path="/settings" exact>
               <HighScoresTopHud/>

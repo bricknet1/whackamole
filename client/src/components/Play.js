@@ -18,7 +18,7 @@ function Play({user, setValues, setUser, maxHealth}){
   const history = useHistory();
 
   const [loaded, setLoaded] = useState(false);
-  const [tier, setTier] = useState(50);
+  const [tier, setTier] = useState(40);
   const [shouldAddListener, setShouldAddListener] = useState(true);
 
   const emptySoundPlay = new Audio(emptySound);
@@ -54,7 +54,8 @@ function Play({user, setValues, setUser, maxHealth}){
   const holeList = [hole1, hole2, hole3, hole4, hole5, hole6, hole7, hole8, hole9]
 
   useEffect(()=>{
-    console.log(enemies);
+    console.log(time);
+    console.log(health);
     setValues(user)
     dispatch(hole1up([0,0,0]))
     dispatch(hole2up([0,0,0]))

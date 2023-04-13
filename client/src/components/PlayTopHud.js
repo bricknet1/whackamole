@@ -1,9 +1,9 @@
 import { useHistory } from 'react-router-dom';
 import {useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {clockDown, clockSet} from '../actions';
+import {clockDown, clockSet, healthSet} from '../actions';
 
-function PlayTopHud({user}){
+function PlayTopHud({user, maxHealth}){
 
   const history = useHistory();
 
@@ -20,6 +20,7 @@ function PlayTopHud({user}){
     return () => {
       clearInterval(playClock)
       dispatch(clockSet(60))
+      dispatch(healthSet(maxHealth))
     }
   },[])
   
