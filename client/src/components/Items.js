@@ -6,6 +6,7 @@ function Items({user, setUser, allItems, setValues}){
 
   // const dispatch = useDispatch();
   const [itemsToDisplay, setItemsToDisplay] = useState([]);
+  const [selectedItem, setSelectedItem] = useState(null);
 
   function handleMenu(e){
     const filtered = allItems.filter(item => item.category === e.target.value)
@@ -51,17 +52,6 @@ function Items({user, setUser, allItems, setValues}){
     })
   }
 
-  function handleEquip(e){
-    const selected_item = parseInt(e.target.value)
-    let slot = prompt("Equip as item 1 or item 2?\nPlease type either 1 or 2")
-    if (slot !== "1" && slot !== "2"){slot = prompt("Equip as item 1 or item 2?\nYou must type either 1 or 2")}
-    if (slot !== "1" && slot !== "2"){return alert("Item was not equipped")}
-    let values
-    if(slot === "1"){values = {"item1":selected_item}}
-    else if(slot === "2"){values = {"item2":selected_item}}
-    fetcher(values)
-  }
-
   function handleUnequip(e){
     const selected_item = parseInt(e.target.value)
     let values
@@ -70,13 +60,41 @@ function Items({user, setUser, allItems, setValues}){
     fetcher(values)
   }
 
+  function handleEquip(itemId){
+    setSelectedItem(itemId);
+  }
+
   const itemStore = itemsToDisplay.map((item, index) => {
     const {id, name, attack, defense, health, cost} = item;
     const owned = user['item_list'].includes(id);
     const equipped = user['item1']===id || user['item2']===id;
+    function handleEquipClick(){
+      handleEquip(id);
+    }
+    function handleModalButton(e){
+      console.log('click');
+      const slot = e.target.value;
+      let values
+      if(slot === "1"){values = {"item1":id}}
+      else if(slot === "2"){values = {"item2":id}}
+      fetcher(values)
+      setSelectedItem(null)
+    }
     return (
-      <div key={index} className='item-store'>
-        {owned?(equipped?<button className='storebutton' value={id} onClick={handleUnequip}>Unequip</button>:<button className='storebutton' value={id} onClick={handleEquip}>Equip</button>):<button className='storebutton' value={id} onClick={handleBuy}>{cost} Coins</button>}-{name}: {attack}/{defense}/{health}
+      <div key={index}>
+        <div className='item-store'>
+          {owned?(equipped?<button className='storebutton' value={id} onClick={handleUnequip}>Unequip</button>:<button className='storebutton' value={id} onClick={handleEquipClick}>Equip</button>):<button className='storebutton' value={id} onClick={handleBuy}>{cost} Coins</button>}-{name}: {attack}/{defense}/{health}
+        </div>
+        {selectedItem === id && (
+        <div id={name} className="modal">
+          <div className="modal-content">
+            <span className="close" onClick={()=>setSelectedItem(null)}>&times;</span>
+            <br/><p>Equip as item 1 or item 2?</p>
+            <button className='modal-button1' value="1" onClick={handleModalButton}>1</button>
+            <button className='modal-button2' value="2" onClick={handleModalButton}>2</button>
+          </div>
+        </div>
+      )}
       </div>
     )
   })

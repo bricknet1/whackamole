@@ -284,3 +284,45 @@ input{
   left: calc(50% - 100px/2);
   top: calc(95% - 100px/2);
 }
+
+.modal {
+  /* display: none; */
+  position: absolute;
+  width: 500px;
+  height: 150px;
+  left: calc(50% - 500px/2);
+  top: 150px;
+  border-radius: 20px;
+  align-items: center;
+  text-align: center;
+  z-index: 1; /* Sit on top */
+  background-color: #4FC9C2; 
+}
+
+.modal-content{
+  padding-top: 10px;
+}
+
+.modal-button1{
+  left: 100px;
+  top: 70px;
+}
+
+.modal-button2{
+  left: 275px;
+  top: 70px;
+}
+
+.close {
+  position: absolute;
+  left: 465px;
+  top: 10px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #A22020;
+  cursor: pointer;
+}

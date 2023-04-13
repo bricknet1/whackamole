@@ -189,7 +189,8 @@ function Play({user, setValues, setUser, maxHealth}){
 
   function hit(e){
     document.removeEventListener("keypress", hit)
-    if (e.key===buttons[0]){
+    if (time<1 || health<1){return('')}
+    else if (e.key===buttons[0]){
 
       if (hole1[1]>0){
         dispatch(hole1hit(attackValue))
@@ -396,9 +397,15 @@ function Play({user, setValues, setUser, maxHealth}){
 
   const avocadoImages = [avocado1, avocado2]
 
+  const [nextAvocado, setNextAvocado] = useState(0);
+
   const randomAvocado = () => {
     return (avocadoImages[randomTime(0,(avocadoImages.length-1))])
+    // setNextAvocado(current => current+1)
+    // return (avocadoImages[nextAvocado])
   }
+
+
 
   if(!user){return <></>}else{
     if(time<1 || health<1){
