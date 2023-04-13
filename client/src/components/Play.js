@@ -141,18 +141,18 @@ function Play({user, setValues, setUser, maxHealth}){
   }
 
   function reward(){
-    const rewardType = randomTime(1,9);
-    if(rewardType===1){
+    const rewardType = randomTime(1,20);
+    if(rewardType===1 || rewardType===2 || rewardType===3){
       addCoins();
       console.log("coin reward");
-    } else if (rewardType===2){
+    } else if (rewardType===10 || rewardType===11 || rewardType===12){
       if ((health+(Math.ceil(tier/3)))>maxHealth){
         dispatch(healthSet(maxHealth))
       } else if ((health+(Math.ceil(tier/3)))<=maxHealth) {
         dispatch(healthUp(Math.ceil(tier/3)))
       }
       console.log("health reward");
-    } else if (rewardType===3){
+    } else if (rewardType===18 || rewardType===19 || rewardType===20){
       dispatch(clockUp(5))
       console.log("time reward");
     } else {

@@ -33,7 +33,7 @@ function PlayTopHud({user}){
       <div>
         <button className='button1' id='empty'>Score<br/>{score}</button>
         <button className='button2' id='empty'>Coins<br/>{coins}</button>
-        <button className='button3' id='empty'>Health<br/>{health}</button>
+        <button className='button3' id='empty'>Health<br/>{health<0?"0":health}</button>
         <button className='button4' onClick={handleBack}>Time<br/>{time>0&&health>0?time:'Up'}</button>
       </div>
     )
