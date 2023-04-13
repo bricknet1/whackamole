@@ -2,8 +2,16 @@ import {useEffect, useState} from 'react';
 import {hole1hit, hole1up, hole2hit, hole2up, hole3hit, hole3up, hole4hit, hole4up, hole5hit, hole5up, hole6hit, hole6up, hole7hit, hole7up, hole8hit, hole8up, hole9hit, hole9up, healthDown, clockDown, scoreUp, scoreSet, healthUp, clockUp, coinsSet, healthSet} from '../actions';
 import {useSelector, useDispatch} from 'react-redux';
 import { useHistory } from 'react-router-dom';
+
 import avocado1 from '../images/avocado1.png';
 import avocado2 from '../images/avocado2.png';
+
+import emptySound from '../sounds/empty.wav';
+import loseSound from '../sounds/lose.wav';
+import hitSound from '../sounds/hit.wav';
+import timeSound from '../sounds/time.wav';
+import healthSound from '../sounds/health.wav';
+import coinSound from '../sounds/coin.wav';
 
 function Play({user, setValues, setUser, maxHealth}){
   
@@ -11,6 +19,13 @@ function Play({user, setValues, setUser, maxHealth}){
 
   const [loaded, setLoaded] = useState(false);
   const [tier, setTier] = useState(1);
+
+  const emptySoundPlay = new Audio(emptySound);
+  const loseSoundPlay = new Audio(loseSound);
+  const hitSoundPlay = new Audio(hitSound);
+  const timeSoundPlay = new Audio(timeSound);
+  const healthSoundPlay = new Audio(healthSound);
+  const coinSoundPlay = new Audio(coinSound);
 
   const time = useSelector(state => state.time)
   const score = useSelector(state => state.score)
@@ -28,6 +43,7 @@ function Play({user, setValues, setUser, maxHealth}){
   const hole8 = useSelector(state => state.hole8)
   const hole9 = useSelector(state => state.hole9)
   const enemies = useSelector(state => state.enemies)
+
   const dispatch = useDispatch();
   
   const buttons = [user['numpad1'], user['numpad2'], user['numpad3'], user['numpad4'], user['numpad5'], user['numpad6'], user['numpad7'], user['numpad8'], user['numpad9']]
@@ -131,8 +147,9 @@ function Play({user, setValues, setUser, maxHealth}){
     .then(res => {
       if (res.ok) {
         res.json().then(data => {
-          setUser(data)
-          dispatch(coinsSet(data.coins))
+          setUser(data);
+          dispatch(coinsSet(data.coins));
+          coinSoundPlay.play();
         })
       } else {
         res.json().then(error => console.log(error.message))
@@ -146,17 +163,22 @@ function Play({user, setValues, setUser, maxHealth}){
       addCoins();
       console.log("coin reward");
     } else if (rewardType===10 || rewardType===11 || rewardType===12){
+      console.log(health);
+      console.log(health+(Math.ceil(tier/3)));
+      healthSoundPlay.play();
       if ((health+(Math.ceil(tier/3)))>maxHealth){
-        dispatch(healthSet(maxHealth))
+        dispatch(healthSet(maxHealth));
       } else if ((health+(Math.ceil(tier/3)))<=maxHealth) {
-        dispatch(healthUp(Math.ceil(tier/3)))
+        dispatch(healthUp(Math.ceil(tier/3)));
       }
       console.log("health reward");
     } else if (rewardType===18 || rewardType===19 || rewardType===20){
-      dispatch(clockUp(5))
+      timeSoundPlay.play();
+      dispatch(clockUp(5));
       console.log("time reward");
     } else {
       console.log("no reward");
+      hitSoundPlay.play();
     }
   }
 
@@ -166,133 +188,140 @@ function Play({user, setValues, setUser, maxHealth}){
 
   function hitEmptyHole(){
     console.log("Hit an empty hole");
-    dispatch(clockDown(5))
-    document.addEventListener("keypress", hit)
+    dispatch(clockDown(5));
+    emptySoundPlay.play();
+    document.addEventListener("keypress", hit);
   }
 
   function hit(e){
     document.removeEventListener("keypress", hit)
-    if (time<1 || health<1){return('')}
-    else if (e.key===buttons[0]){
+    console.log("time "+time);
+    console.log("health "+health);
+    if (time<1 || health<1){
+      document.removeEventListener("keypress", hit)
+      return(loseSoundPlay.play())
+    } else if (time>0 && health>0){
 
-      if (hole1[1]>0){
-        dispatch(hole1hit(attackValue))
-        if((hole1[1]-attackValue)<=0){
-          dispatch(scoreUp(hole1[2]))
-          hole1Clock()
-          reward()
+      if (e.key===buttons[0]){
+        if (hole1[1]>0){
+          dispatch(hole1hit(attackValue))
+          if(defenseValue<hole1[0]){dispatch(healthDown(hole1[0]-defenseValue))}
+          if((hole1[1]-attackValue)<=0){
+            dispatch(scoreUp(hole1[2]))
+            hole1Clock()
+            reward()
+          } else {hitSoundPlay.play()}
+        } else if (hole1[1]<=0){
+          hitEmptyHole()
         }
-        if(defenseValue<hole1[0]){dispatch(healthDown(hole1[0]-defenseValue))}
-      } else if (hole1[1]<=0){
-        hitEmptyHole()
-      }
 
-    } else if (e.key===buttons[1]){
-      if (hole2[1]>0){
-        dispatch(hole2hit(attackValue))
-        if((hole2[1]-attackValue)<=0){
-          dispatch(scoreUp(hole2[2]))
-          hole2Clock()
-          reward()
+      } else if (e.key===buttons[1]){
+        if (hole2[1]>0){
+          dispatch(hole2hit(attackValue))
+          if(defenseValue<hole2[0]){dispatch(healthDown(hole2[0]-defenseValue))}
+          if((hole2[1]-attackValue)<=0){
+            dispatch(scoreUp(hole2[2]))
+            hole2Clock()
+            reward()
+          } else {hitSoundPlay.play()}
+        } else if (hole2[1]<=0){
+          hitEmptyHole()
         }
-        if(defenseValue<hole2[0]){dispatch(healthDown(hole2[0]-defenseValue))}
-      } else if (hole2[1]<=0){
-        hitEmptyHole()
-      }
 
-    } else if (e.key===buttons[2]){
-      if (hole3[1]>0){
-        dispatch(hole3hit(attackValue))
-        if((hole3[1]-attackValue)<=0){
-          dispatch(scoreUp(hole3[2]))
-          hole3Clock()
-          reward()
+      } else if (e.key===buttons[2]){
+        if (hole3[1]>0){
+          dispatch(hole3hit(attackValue))
+          if(defenseValue<hole3[0]){dispatch(healthDown(hole3[0]-defenseValue))}
+          if((hole3[1]-attackValue)<=0){
+            dispatch(scoreUp(hole3[2]))
+            hole3Clock()
+            reward()
+          } else {hitSoundPlay.play()}
+        } else if (hole3[1]<=0){
+          hitEmptyHole()
         }
-        if(defenseValue<hole3[0]){dispatch(healthDown(hole3[0]-defenseValue))}
-      } else if (hole3[1]<=0){
-        hitEmptyHole()
-      }
 
-    } else if (e.key===buttons[3]){
-      if (hole4[1]>0){
-        dispatch(hole4hit(attackValue))
-        if((hole4[1]-attackValue)<=0){
-          dispatch(scoreUp(hole4[2]))
-          hole4Clock()
-          reward()
+      } else if (e.key===buttons[3]){
+        if (hole4[1]>0){
+          dispatch(hole4hit(attackValue))
+          if(defenseValue<hole4[0]){dispatch(healthDown(hole4[0]-defenseValue))}
+          if((hole4[1]-attackValue)<=0){
+            dispatch(scoreUp(hole4[2]))
+            hole4Clock()
+            reward()
+          } else {hitSoundPlay.play()}
+        } else if (hole4[1]<=0){
+          hitEmptyHole()
         }
-        if(defenseValue<hole4[0]){dispatch(healthDown(hole4[0]-defenseValue))}
-      } else if (hole4[1]<=0){
-        hitEmptyHole()
-      }
-      
-    } else if (e.key===buttons[4]){
-      if (hole5[1]>0){
-        dispatch(hole5hit(attackValue))
-        if((hole5[1]-attackValue)<=0){
-          dispatch(scoreUp(hole5[2]))
-          hole5Clock()
-          reward()
+        
+      } else if (e.key===buttons[4]){
+        if (hole5[1]>0){
+          dispatch(hole5hit(attackValue))
+          if(defenseValue<hole5[0]){dispatch(healthDown(hole5[0]-defenseValue))}
+          if((hole5[1]-attackValue)<=0){
+            dispatch(scoreUp(hole5[2]))
+            hole5Clock()
+            reward()
+          } else {hitSoundPlay.play()}
+        } else if (hole5[1]<=0){
+          hitEmptyHole()
         }
-        if(defenseValue<hole5[0]){dispatch(healthDown(hole5[0]-defenseValue))}
-      } else if (hole5[1]<=0){
-        hitEmptyHole()
-      }
 
-    } else if (e.key===buttons[5]){
-      if (hole6[1]>0){
-        dispatch(hole6hit(attackValue))
-        if((hole6[1]-attackValue)<=0){
-          dispatch(scoreUp(hole6[2]))
-          hole6Clock()
-          reward()
+      } else if (e.key===buttons[5]){
+        if (hole6[1]>0){
+          dispatch(hole6hit(attackValue))
+          if(defenseValue<hole6[0]){dispatch(healthDown(hole6[0]-defenseValue))}
+          if((hole6[1]-attackValue)<=0){
+            dispatch(scoreUp(hole6[2]))
+            hole6Clock()
+            reward()
+          } else {hitSoundPlay.play()}
+        } else if (hole6[1]<=0){
+          hitEmptyHole()
         }
-        if(defenseValue<hole6[0]){dispatch(healthDown(hole6[0]-defenseValue))}
-      } else if (hole6[1]<=0){
-        hitEmptyHole()
-      }
 
-    } else if (e.key===buttons[6]){
-      if (hole7[1]>0){
-        dispatch(hole7hit(attackValue))
-        if((hole7[1]-attackValue)<=0){
-          dispatch(scoreUp(hole7[2]))
-          hole7Clock()
-          reward()
+      } else if (e.key===buttons[6]){
+        if (hole7[1]>0){
+          dispatch(hole7hit(attackValue))
+          if(defenseValue<hole7[0]){dispatch(healthDown(hole7[0]-defenseValue))}
+          if((hole7[1]-attackValue)<=0){
+            dispatch(scoreUp(hole7[2]))
+            hole7Clock()
+            reward()
+          } else {hitSoundPlay.play()}
+        } else if (hole7[1]<=0){
+          hitEmptyHole()
         }
-        if(defenseValue<hole7[0]){dispatch(healthDown(hole7[0]-defenseValue))}
-      } else if (hole7[1]<=0){
-        hitEmptyHole()
-      }
 
-    } else if (e.key===buttons[7]){
-      if (hole8[1]>0){
-        dispatch(hole8hit(attackValue))
-        if((hole8[1]-attackValue)<=0){
-          dispatch(scoreUp(hole8[2]))
-          hole8Clock()
-          reward()
+      } else if (e.key===buttons[7]){
+        if (hole8[1]>0){
+          dispatch(hole8hit(attackValue))
+          if(defenseValue<hole8[0]){dispatch(healthDown(hole8[0]-defenseValue))}
+          if((hole8[1]-attackValue)<=0){
+            dispatch(scoreUp(hole8[2]))
+            hole8Clock()
+            reward()
+          } else {hitSoundPlay.play()}
+        } else if (hole8[1]<=0){
+          hitEmptyHole()
         }
-        if(defenseValue<hole8[0]){dispatch(healthDown(hole8[0]-defenseValue))}
-      } else if (hole8[1]<=0){
-        hitEmptyHole()
-      }
 
-    } else if (e.key===buttons[8]){
-      if (hole9[1]>0){
-        dispatch(hole9hit(attackValue))
-        if((hole9[1]-attackValue)<=0){
-          dispatch(scoreUp(hole9[2]))
-          hole9Clock()
-          reward()
+      } else if (e.key===buttons[8]){
+        if (hole9[1]>0){
+          dispatch(hole9hit(attackValue))
+          if(defenseValue<hole9[0]){dispatch(healthDown(hole9[0]-defenseValue))}
+          if((hole9[1]-attackValue)<=0){
+            dispatch(scoreUp(hole9[2]))
+            hole9Clock()
+            reward()
+          } else {hitSoundPlay.play()}
+        } else if (hole9[1]<=0){
+          hitEmptyHole()
         }
-        if(defenseValue<hole9[0]){dispatch(healthDown(hole9[0]-defenseValue))}
-      } else if (hole9[1]<=0){
-        hitEmptyHole()
+      } else {
+        console.log(e.key+' is not a valid button')
+        document.addEventListener("keypress", hit)
       }
-    } else {
-      console.log(e.key+' is not a valid button')
-      document.addEventListener("keypress", hit)
     }
   }
 
@@ -301,7 +330,7 @@ function Play({user, setValues, setUser, maxHealth}){
   }
 
   function handleClick(e){
-    const keyEvent = new KeyboardEvent("keypress", {key:user[e.target.value]})
+    const keyEvent = new KeyboardEvent("keypress", {key:user[e.currentTarget.value]})
     document.dispatchEvent(keyEvent)
   }
 
