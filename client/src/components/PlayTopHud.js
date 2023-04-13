@@ -17,15 +17,6 @@ function PlayTopHud({user}){
     const playClock = setInterval(()=>{
       dispatch(clockDown(1))
     }, 1000)
-    // if(health<1){
-    //   dispatch(clockSet(0))
-    //   clearInterval(playClock)
-    //   // console.log("health "+health+" and time "+time);
-    // }
-    // if(time<1){
-    //   clearInterval(playClock)
-    //   // console.log("health "+health+" and time "+time);
-    // }
     return () => {
       clearInterval(playClock)
       dispatch(clockSet(60))

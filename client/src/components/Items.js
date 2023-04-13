@@ -1,10 +1,7 @@
 import {useState} from 'react'
-// import {attackValueSet, defenseValueSet} from '../actions';
-// import {useSelector, useDispatch} from 'react-redux';
 
 function Items({user, setUser, allItems, setValues}){
 
-  // const dispatch = useDispatch();
   const [itemsToDisplay, setItemsToDisplay] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
 
@@ -72,7 +69,6 @@ function Items({user, setUser, allItems, setValues}){
       handleEquip(id);
     }
     function handleModalButton(e){
-      console.log('click');
       const slot = e.target.value;
       let values
       if(slot === "1"){values = {"item1":id}}

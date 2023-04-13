@@ -24,8 +24,6 @@ function App() {
   const [user, setUser] = useState(null);
   const [allItems, setAllItems] = useState([]);
   const [maxHealth, setMaxHealth] = useState(10);
-  // const [item1, setItem1] = useState({attack:0, category:'', cost:0, defense:0, description:'', health:0, id:0, name:''});
-  // const [item2, setItem2] = useState({attack:0, category:'', cost:0, defense:0, description:'', health:0, id:0, name:''});
 
   const history = useHistory();
   const dispatch = useDispatch();
@@ -51,8 +49,6 @@ function App() {
         .then(data => {
           if(data===user){console.log("all good bro")}else{
             setUser(data)
-            // setItem1(data.items.filter(item => item.id === data.item1)[0])
-            // setItem2(data.items.filter(item => item.id === data.item2)[0])
           }
         })
       } else {

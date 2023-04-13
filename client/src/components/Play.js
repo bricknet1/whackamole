@@ -4,7 +4,6 @@ import {useSelector, useDispatch} from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import avocado1 from '../images/avocado1.png';
 import avocado2 from '../images/avocado2.png';
-// import { useElapsedTime } from 'use-elapsed-time'
 
 function Play({user, setValues, setUser, maxHealth}){
   
@@ -12,8 +11,6 @@ function Play({user, setValues, setUser, maxHealth}){
 
   const [loaded, setLoaded] = useState(false);
   const [tier, setTier] = useState(1);
-
-  // const {elapsedTime} = useElapsedTime({isPlaying: loaded});
 
   const time = useSelector(state => state.time)
   const score = useSelector(state => state.score)
@@ -75,16 +72,8 @@ function Play({user, setValues, setUser, maxHealth}){
   }
   
 
-  // function clockPenalty(){
-  //   console.log(hole1);
-  //   if(hole1[1]>0){console.log('timeout')}
-  // }
-
   const hole1Clock = ()=> setTimeout(()=>{
     dispatch(hole1up(randomEnemy(tier)))
-    // setTimeout(()=>{
-    //   clockPenalty()
-    // }, 5000)
   }, randomTime(1000,10000))
   const hole2Clock = ()=> setTimeout(()=>{
     dispatch(hole2up(randomEnemy(tier)))
@@ -153,16 +142,10 @@ function Play({user, setValues, setUser, maxHealth}){
 
   function reward(){
     const rewardType = randomTime(1,9);
-    // const rewardType = 2;
     if(rewardType===1){
       addCoins();
       console.log("coin reward");
     } else if (rewardType===2){
-      // console.log("current health: "+health);
-      // console.log("modified health: "+(health+(Math.ceil(tier/3))));
-      // console.log("max health: "+maxHealth);
-      // console.log("health should update: "+((health+(Math.ceil(tier/3)))<=maxHealth));
-      // console.log("health should be at max: "+((health+(Math.ceil(tier/3)))>maxHealth));
       if ((health+(Math.ceil(tier/3)))>maxHealth){
         dispatch(healthSet(maxHealth))
       } else if ((health+(Math.ceil(tier/3)))<=maxHealth) {
@@ -312,54 +295,15 @@ function Play({user, setValues, setUser, maxHealth}){
       document.addEventListener("keypress", hit)
     }
   }
-  
-
-
-  // useEffect(() => {
-  //   const moleClock = setInterval(()=>{
-  //     dispatch(hole1up([1,20]))
-  //     console.log(hole1);
-  //   }, randomTime(1000,5000))
-  //   // return () => {
-  //   //   clearInterval(moleClock)
-  //   // }
-  // },[])
-
-  // useEffect(() => {
-  //   const hitClock = setInterval(()=>{
-  //     console.log(hole1);
-  //     dispatch(hole1hit(1))
-  //     console.log(hole1);
-  //   }, 5000)
-  //   return () => {
-  //     clearInterval(hitClock)
-  //   }
-  // },[])
-
-
 
   function randomTime(min,max){
     return Math.floor(Math.random()*(max-min+1))+min;
   }
 
-
-
   function handleClick(e){
     const keyEvent = new KeyboardEvent("keypress", {key:user[e.target.value]})
     document.dispatchEvent(keyEvent)
   }
-
-
-  // const holeRender = ()=>{
-  //   const holeList = [hole1, hole2, hole3, hole4, hole5, hole6, hole7, hole8, hole9]
-  //   const renderedHoles = []
-  //   for (let i=1; i<10; i++){
-  //     renderedHoles.append(
-  //       <button className='hole' id={'hole'+i} value={'numpad'+i} onClick={handleClick}>{holeList[i-1][1]>0?holeList[i-1][0]+"/"+holeList[i-1][1]:''}</button>
-  //     )
-  //   }
-  //   return renderedHoles;
-  // }
 
   function handleBack(){
     const values = {"score":score, "id":user.id}
@@ -381,9 +325,6 @@ function Play({user, setValues, setUser, maxHealth}){
   }
 
   function emptyHoles(){
-    // console.log('emptying');
-    // document.removeEventListener("keypress", hit)
-    // clearTimeout(hole1timeout)
     dispatch(hole1up([0,0,0]))
     dispatch(hole2up([0,0,0]))
     dispatch(hole3up([0,0,0]))

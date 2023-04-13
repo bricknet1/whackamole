@@ -1,9 +1,6 @@
-// import {useState} from 'react'
+
 
 function PlayBottomHud({user}){
-
-  // const item2 = allItems.filter(item => item.id === user.item2)[0]
-  // console.log(item1);
   
   if(!user){return <></>}else{
     const item1 = user.items.filter(item => item.id === user.item1)[0]

@@ -19,13 +19,11 @@ function Settings({user, setUser}){
   
   if(!user){return <></>}else{
     const buttons = [user['numpad1'], user['numpad2'], user['numpad3'], user['numpad4'], user['numpad5'], user['numpad6'], user['numpad7'], user['numpad8'], user['numpad9']]
-    // console.log(buttons);
-    
+
     function handleClick(e){
       const whichHole = e.target.value;
       document.addEventListener("keypress", keyOutput)
       function keyOutput(e){
-        // console.log(e);
         if (buttons.includes(e.key)){alert('That key is already assigned. Please use a different key.')}else{
         document.removeEventListener("keypress", keyOutput)
         const values = {[whichHole]:e.key}
