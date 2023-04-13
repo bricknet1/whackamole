@@ -1,6 +1,6 @@
 import { useHistory } from 'react-router-dom';
 
-function ItemsTopHud({user, allItems, item1, item2}){
+function ItemsTopHud({user}){
 
   const history = useHistory();
 

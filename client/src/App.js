@@ -47,7 +47,7 @@ function App() {
       if(res.ok){
         res.json()
         .then(data => {
-          if(data===user){console.log("all good bro")}else{
+          if(data===user){console.log("user matches data")}else{
             setUser(data)
           }
         })
@@ -93,7 +93,7 @@ function App() {
               <HighScoresTopHud/>
             </Route>
             <Route path="/items" exact>
-              <ItemsTopHud user={user} allItems={allItems}/>
+              <ItemsTopHud user={user}/>
             </Route>
             <Route path="/play" exact>
               <PlayTopHud user={user}/>
@@ -106,7 +106,7 @@ function App() {
         <div className='play-field'>
           <Switch>
             <Route path="/" exact>
-              {user?<Home user={user} handleLogout={handleLogout}/>:<Login setUser={setUser}/>}
+              {user?<Home user={user} handleLogout={handleLogout}/>:<Login setUser={setUser} setValues={setValues}/>}
             </Route>
             <Route path="/highscores" exact>
               <HighScores/>
@@ -126,12 +126,6 @@ function App() {
             <Route path="/signup" exact>
               <Home user={user} handleLogout={handleLogout}/>
             </Route>
-            {/* <Route path="/login" exact>
-              <Login setUser={setUser}/>
-            </Route>
-            <Route path="/signup" exact>
-              <Signup setUser={setUser}/>
-            </Route> */}
             <Route path="*">
               <h3>404 Not Found</h3>
             </Route>
@@ -140,10 +134,10 @@ function App() {
         <div className='bottom-hud'>
         <Switch>
             <Route path="/highscores" exact>
-              <HighScoresBottomHud user={user} handleLogout={handleLogout}/>
+              <HighScoresBottomHud handleLogout={handleLogout}/>
             </Route>
             <Route path="/items" exact>
-              <ItemsBottomHud user={user} allItems={allItems} handleLogout={handleLogout}/>
+              <ItemsBottomHud user={user} handleLogout={handleLogout}/>
             </Route>
             <Route path="/play" exact>
               <PlayBottomHud user={user}/>

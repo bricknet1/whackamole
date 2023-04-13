@@ -95,8 +95,6 @@ function Items({user, setUser, allItems, setValues}){
     )
   })
 
-
-  
   return(
     <div>
       <h2>items</h2>
