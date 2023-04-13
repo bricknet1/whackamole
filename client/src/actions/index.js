@@ -200,3 +200,10 @@ export const hole9hit = (number) => {
     payload: number
   }
 }
+
+export const setEnemies = (objectarray) => {
+  return {
+    type: 'SETENEMIES',
+    payload: objectarray
+  }
+}

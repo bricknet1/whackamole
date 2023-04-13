@@ -13,12 +13,12 @@ import timeSound from '../sounds/time.wav';
 import healthSound from '../sounds/health.wav';
 import coinSound from '../sounds/coin.wav';
 
-function Play({user, setValues, setUser, maxHealth}){
+function Play({user, setValues, setUser, maxHealth, enemySetter}){
   
   const history = useHistory();
 
   const [loaded, setLoaded] = useState(false);
-  const [tier, setTier] = useState(40);
+  const [tier, setTier] = useState(1);
   const [shouldAddListener, setShouldAddListener] = useState(true);
 
   const emptySoundPlay = new Audio(emptySound);
@@ -54,6 +54,7 @@ function Play({user, setValues, setUser, maxHealth}){
   const holeList = [hole1, hole2, hole3, hole4, hole5, hole6, hole7, hole8, hole9]
 
   useEffect(()=>{
+    enemySetter()
     console.log(time);
     console.log(health);
     setValues(user)

@@ -1,7 +1,7 @@
 import { Route, Switch } from 'react-router-dom';
 import {useEffect, useState, useCallback} from 'react';
 import { useHistory } from 'react-router-dom';
-import {healthSet, attackValueSet, defenseValueSet, coinsSet} from './actions';
+import {healthSet, attackValueSet, defenseValueSet, coinsSet, setEnemies} from './actions';
 import {useDispatch} from 'react-redux';
 
 import Login from './components/Login.js';
@@ -69,6 +69,12 @@ function App() {
     )
   }
 
+  function enemySetter(){
+    fetch('/enemies')
+    .then(res=>res.json())
+    .then(data=>dispatch(setEnemies(data)))
+  }
+
   function handleLogout(){
     fetch('/logout', {
       method: "DELETE"
@@ -115,7 +121,7 @@ function App() {
               <Items user={user} setUser={setUser} allItems={allItems} setValues={setValues}/>
             </Route>
             <Route path="/play" exact>
-              <Play user={user} setUser={setUser} setValues={setValues} maxHealth={maxHealth}/>
+              <Play user={user} setUser={setUser} setValues={setValues} maxHealth={maxHealth} enemySetter={enemySetter}/>
             </Route>
             <Route path="/settings" exact>
               <Settings user={user} setUser={setUser}/>
