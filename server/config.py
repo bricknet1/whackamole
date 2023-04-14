@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 
-from flask import Flask, request, make_response, session, jsonify, abort
+from dotenv import load_dotenv
+load_dotenv()
+
+from flask import Flask, request, make_response, session, jsonify, abort, render_template
 from flask_migrate import Migrate
 from flask_restful import Api
 from flask_cors import CORS
@@ -8,7 +11,12 @@ from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
-app = Flask(__name__)
+app = Flask(
+    __name__,
+    static_url_path='',
+    static_folder='../client/build',
+    template_folder='../client/build'
+)
 CORS(app)
 bcrypt = Bcrypt(app)
 
@@ -21,5 +29,10 @@ app.secret_key = b'\xf0L\xeb\r\x14\x8by\x83\x08\xc9\x97\x01\xb6#f\x9b'
 
 migrate = Migrate(app, db)
 db.init_app(app)
+
+@app.route('/')
+@app.route('/<int:id>')
+def index(id=0):
+    return render_template("index.html")
 
 api = Api(app)
