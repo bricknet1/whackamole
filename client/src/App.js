@@ -18,6 +18,7 @@ import ItemsBottomHud from './components/ItemsBottomHud.js';
 import Play from './components/Play.js';
 import PlayTopHud from './components/PlayTopHud.js';
 import PlayBottomHud from './components/PlayBottomHud.js';
+import Secret from './components/Secret';
 import Settings from './components/Settings.js';
 import SettingsBottomHud from './components/SettingsBottomHud.js';
 
@@ -112,6 +113,9 @@ function App() {
             <Route path="/settings" exact>
               <HighScoresTopHud/>
             </Route>
+            <Route path="/3122213" exact>
+              <HighScoresTopHud/>
+            </Route>
           </Switch>
         </div>
         <div className='play-field'>
@@ -137,6 +141,9 @@ function App() {
             <Route path="/signup" exact>
               <Home user={user} handleLogout={handleLogout}/>
             </Route>
+            <Route path="/3122213" exact>
+              <Secret/>
+            </Route>
             <Route path="*">
               <h3>404 Not Found</h3>
             </Route>
@@ -145,6 +152,9 @@ function App() {
         <div className='bottom-hud'>
         <Switch>
             <Route path="/highscores" exact>
+              <HighScoresBottomHud handleLogout={handleLogout}/>
+            </Route>
+            <Route path="/3122213" exact>
               <HighScoresBottomHud handleLogout={handleLogout}/>
             </Route>
             <Route path="/items" exact>

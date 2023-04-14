@@ -286,7 +286,6 @@ input{
 }
 
 .modal {
-  /* display: none; */
   position: absolute;
   width: 500px;
   height: 150px;
@@ -325,4 +324,16 @@ input{
 .close:focus {
   color: #A22020;
   cursor: pointer;
+}
+
+.tophbutton{
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  left: calc(50% - 200px/2);
+  top: calc(50% - 200px/2);
+}
+
+.tophbutton:hover{
+  animation-duration: .5s;
 }
