@@ -33,11 +33,13 @@ function App() {
 
   const button3SoundPlay = new Audio(button3Sound);
 
+  // eslint-disable-next-line
   const userFetch = useCallback(fetchUser, [history]);
 
   useEffect(() => {
     fetchUser()
     fetchItems()
+    // eslint-disable-next-line
   },[userFetch])
 
   function fetchItems(){

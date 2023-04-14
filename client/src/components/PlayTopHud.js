@@ -25,6 +25,7 @@ function PlayTopHud({user, maxHealth}){
       dispatch(clockSet(60))
       dispatch(healthSet(maxHealth))
     }
+    // eslint-disable-next-line
   },[])
   
 

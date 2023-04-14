@@ -6,7 +6,7 @@ function Home({user, handleLogout}){
   const history = useHistory();
 
   const buttonSoundPlay = new Audio(buttonSound);
-  const button3SoundPlay = new Audio(buttonSound);
+  // const button3SoundPlay = new Audio(buttonSound);
 
   function handlePlay(){
     buttonSoundPlay.play()
