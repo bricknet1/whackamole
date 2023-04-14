@@ -2,6 +2,7 @@
 
 from dotenv import load_dotenv
 load_dotenv()
+import os
 
 from flask import Flask, request, make_response, session, jsonify, abort, render_template
 from flask_migrate import Migrate
@@ -25,7 +26,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.json.compact = False
 
 # python -c 'import os; print(os.urandom(16))'
-app.secret_key = b'\xf0L\xeb\r\x14\x8by\x83\x08\xc9\x97\x01\xb6#f\x9b'
+app.secret_key = os.environ.get('APP_SECRET_KEY')
 
 migrate = Migrate(app, db)
 db.init_app(app)
