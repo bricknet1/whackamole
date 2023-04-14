@@ -17,9 +17,7 @@ function Secret(){
   return(
     <div>
       <button className='tophbutton' onClick={handleBack}><img src={toph}/></button>
-      {/* <button className='button2' id='empty' value='2' onClick={handleCode}></button>
-      <button className='button3' id='empty' value='3' onClick={handleCode}></button>
-      <button className='button4' onClick={handleBack}>Back</button> */}
+      <br/><br/><br/><br/><br/><br/><br/>❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><p>❤️❤️❤️TophDoggy❤️❤️❤️</p>
     </div>
   )
 }

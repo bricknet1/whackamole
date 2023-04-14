@@ -332,6 +332,8 @@ input{
   height: 200px;
   left: calc(50% - 200px/2);
   top: calc(50% - 200px/2);
+  border: ridge #ffd900;
+  border-width: 10px;
 }
 
 .tophbutton:hover{
