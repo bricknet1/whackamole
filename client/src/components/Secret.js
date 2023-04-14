@@ -16,7 +16,7 @@ function Secret(){
 
   return(
     <div>
-      <button className='tophbutton' onClick={handleBack}><img src={toph}/></button>
+      <button className='tophbutton' onClick={handleBack}><img src={toph} alt="A mugshot of TophDoggy"/></button>
       <br/><br/><br/><br/><br/><br/><br/>❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><p>❤️❤️❤️TophDoggy❤️❤️❤️</p>
     </div>
   )
