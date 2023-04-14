@@ -57,8 +57,8 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
 
   useEffect(()=>{
     enemySetter()
-    console.log(time);
-    console.log(health);
+    // console.log(time);
+    // console.log(health);
     setValues(user)
     dispatch(hole1up([0,0,0]))
     dispatch(hole2up([0,0,0]))
@@ -72,7 +72,7 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
     dispatch(scoreSet(0))
     holeBegin()
     return(dispatch(scoreSet(0)))
-  },[])
+  },[dispatch, enemySetter])
 
   useEffect(()=>{
     if (loaded && shouldAddListener){
@@ -81,16 +81,25 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
     return () => {
       document.removeEventListener("keypress", hit)
     }
+    // eslint-disable-next-line
   },[...holeList, shouldAddListener])
 
   useEffect(() => {
     if ((time <= 0 || health <= 0) && shouldAddListener) {
       timeoutsRef.current.forEach(timeoutId => clearTimeout(timeoutId));
-      emptyHoles()
+      dispatch(hole1up([0,0,0]))
+      dispatch(hole2up([0,0,0]))
+      dispatch(hole3up([0,0,0]))
+      dispatch(hole4up([0,0,0]))
+      dispatch(hole5up([0,0,0]))
+      dispatch(hole6up([0,0,0]))
+      dispatch(hole7up([0,0,0]))
+      dispatch(hole8up([0,0,0]))
+      dispatch(hole9up([0,0,0]))
       setShouldAddListener(false)
       loseSoundPlay.play()
     }
-  }, [time, health]);
+  }, [time, health, dispatch, loseSoundPlay, shouldAddListener]);
 
   function randomEnemy(tier){
     let availableEnemies = []
@@ -392,21 +401,21 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
     })
   }
 
-  function emptyHoles(){
-    dispatch(hole1up([0,0,0]))
-    dispatch(hole2up([0,0,0]))
-    dispatch(hole3up([0,0,0]))
-    dispatch(hole4up([0,0,0]))
-    dispatch(hole5up([0,0,0]))
-    dispatch(hole6up([0,0,0]))
-    dispatch(hole7up([0,0,0]))
-    dispatch(hole8up([0,0,0]))
-    dispatch(hole9up([0,0,0]))
-  }
+  // function emptyHoles(){
+  //   dispatch(hole1up([0,0,0]))
+  //   dispatch(hole2up([0,0,0]))
+  //   dispatch(hole3up([0,0,0]))
+  //   dispatch(hole4up([0,0,0]))
+  //   dispatch(hole5up([0,0,0]))
+  //   dispatch(hole6up([0,0,0]))
+  //   dispatch(hole7up([0,0,0]))
+  //   dispatch(hole8up([0,0,0]))
+  //   dispatch(hole9up([0,0,0]))
+  // }
 
   const avocadoImages = [avocado1, avocado2]
 
-  const [nextAvocado, setNextAvocado] = useState(0);
+  // const [nextAvocado, setNextAvocado] = useState(0);
 
   const randomAvocado = () => {
     return (avocadoImages[randomTime(0,(avocadoImages.length-1))])
