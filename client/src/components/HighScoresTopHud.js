@@ -12,7 +12,6 @@ function HighScoresTopHud(){
   let code = '';
   function handleCode(e){
     code = code+(e.target.value)
-    console.log(code);
     if (code.indexOf('3122213')>-1){
       emptySoundPlay.play()
       history.push('/3122213')

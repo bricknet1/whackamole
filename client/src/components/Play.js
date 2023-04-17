@@ -57,8 +57,6 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
 
   useEffect(()=>{
     enemySetter()
-    console.log(time);
-    console.log(health);
     setValues(user)
     dispatch(hole1up([0,0,0]))
     dispatch(hole2up([0,0,0]))
@@ -208,7 +206,7 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
     const rewardType = randomTime(1,20);
     if(rewardType===1 || rewardType===2 || rewardType===3){
       addCoins();
-      console.log("coin reward");
+      // console.log("coin reward");
     } else if (rewardType===10 || rewardType===11 || rewardType===12){
       healthSoundPlay.play();
       if ((health+(Math.ceil(tier/3)))>maxHealth){
@@ -216,13 +214,13 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
       } else if ((health+(Math.ceil(tier/3)))<=maxHealth) {
         dispatch(healthUp(Math.ceil(tier/3)));
       }
-      console.log("health reward");
+      // console.log("health reward");
     } else if (rewardType===18 || rewardType===19 || rewardType===20){
       timeSoundPlay.play();
       dispatch(clockUp(5));
-      console.log("time reward");
+      // console.log("time reward");
     } else {
-      console.log("no reward");
+      // console.log("no reward");
       hitSoundPlay.play();
     }
   }
@@ -232,7 +230,7 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
   }
 
   function hitEmptyHole(){
-    console.log("Hit an empty hole");
+    // console.log("Hit an empty hole");
     dispatch(clockDown(5));
     emptySoundPlay.play();
     document.addEventListener("keypress", hit);
