@@ -10,16 +10,17 @@ fake = Faker()
 
 with app.app_context():
 
-    User.query.delete()
-    Score.query.delete()
-    Item.query.delete()
     UserItem.query.delete()
+    Score.query.delete()
+    User.query.delete()
+    Item.query.delete()
     Enemy.query.delete()
 
     print('Creating Users')
     usernames = ['TophDoggy', 'SAAAAAM', 'Ari_Potter', 'Queen Bee', 'D Bear', 'Liana Din', 'EmileyRulz', 'Wyle', 'Schnyle', 'Stove', 'Twocupterry', 'Trasha']
     users = []
     user1 = User(
+        id=1,
         username='bricknet',
         email='test@test.com',
         coins=1000,
@@ -30,6 +31,7 @@ with app.app_context():
     users.append(user1)
     for i in range(12):
         user = User(
+            id=(i+2),
             username=usernames[i],
             email=fake.email()
         )
@@ -56,6 +58,7 @@ with app.app_context():
     items=[]
     for i in range(len(names)):
         item = Item(
+            id=(i+1),
             name=names[i],
             category=categories[i],
             description=descriptions[i],
