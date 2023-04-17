@@ -10,8 +10,8 @@ class User(db.Model, SerializerMixin):
     serialize_rules = ('-_password_hash', '-user_items', 'item_list', 'items')
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String)
-    email = db.Column(db.String)
+    username = db.Column(db.String, unique=True)
+    email = db.Column(db.String, unique=True)
     numpad1 = db.Column(db.String, default=1)
     numpad2 = db.Column(db.String, default=2)
     numpad3 = db.Column(db.String, default=3)
