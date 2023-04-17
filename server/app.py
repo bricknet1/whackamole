@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 
-from flask import request, make_response, session, jsonify, abort
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
+from flask import request, make_response, session, jsonify, abort, render_template
 from flask_restful import Resource
 from werkzeug.exceptions import NotFound, Unauthorized
 
