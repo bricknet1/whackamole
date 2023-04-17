@@ -98,7 +98,7 @@ function App() {
   return (
     <div className='app'>
       <div className='header'>
-        <h1>Whac-A-Mo-Le</h1> 
+        <h1>Whack-A-Mo-Le</h1> 
       </div>
       {user?<div className='main-container'>
         <div className='top-hud'>

@@ -72,7 +72,7 @@ function Login({ setUser, setValues }) {
       <br />
       <br />
       <br />
-      <p>New to Whac-A-Mo-Le?</p>
+      <p>New to Whack-A-Mo-Le?</p>
       <button className="loginsignupbtn" onClick={handleSignup}>
         Signup Instead
       </button>
