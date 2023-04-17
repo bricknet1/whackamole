@@ -14,15 +14,18 @@ from config import app, db, api
 class Signup(Resource):
     def post(self):
         data = request.get_json()
-        user = User(
-            username=data['username'],
-            email=data['email']
-        )
-        user.password_hash = data['password']
-        db.session.add(user)
-        db.session.commit()
-        session['user_id'] = user.id
-        return make_response(user.to_dict(), 201)
+        try:
+            user = User(
+                username=data['username'],
+                email=data['email']
+            )
+            user.password_hash = data['password']
+            db.session.add(user)
+            db.session.commit()
+            session['user_id'] = user.id
+            return make_response(user.to_dict(), 201)
+        except Exception as e:
+            return make_response({'error': str(e)}, 400)
 api.add_resource(Signup, '/signup')
 
 class Login(Resource):

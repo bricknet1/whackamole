@@ -47,6 +47,7 @@ function Signup({setUser, setValues}) {
         body: JSON.stringify(values)
       })
       .then(res => {
+        console.log('yes');
         if (res.ok) {
           res.json().then(user => {
             setUser(user)
@@ -54,7 +55,16 @@ function Signup({setUser, setValues}) {
             setValues(user)
           })
         } else {
-          res.json().then(error => setError(error.message))
+          res.json().then(error => {
+            console.log(error);
+            if (error.error.includes('users_email_key')) {
+              formik.setErrors({ email: 'An account with this email already exists' });
+            }
+            if (error.error.includes('users_username_key')) {
+              formik.setErrors({ username: 'Username is taken' });
+            }                  
+            setError(error.message)
+          })
         };
       })
     }
