@@ -10,7 +10,7 @@ function Home({user, handleLogout}){
 
   function handlePlay(){
     buttonSoundPlay.play()
-    history.push('/play')
+    history.push('/playstart')
   }
 
   function handleItems(){

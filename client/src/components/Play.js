@@ -394,6 +394,25 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
     })
   }
 
+  function handlePlayAgain(){
+    buttonSoundPlay.play()
+    const values = {"score":score, "id":user.id}
+    fetch('/highscores', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(values)
+    })
+    .then(res => {
+      if (res.ok) {
+        history.push('/playstart')
+      } else {
+        res.json().then(error => console.log(error.message))
+      };
+    })
+  }
+
   function emptyHoles(){
     dispatch(hole1up([0,0,0]))
     dispatch(hole2up([0,0,0]))
@@ -421,7 +440,12 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
   if(!user){return <></>}else{
     if(time<1 || health<1){
       return(
-        <div className='home-body'><h1>Game Over</h1><h2>Score: {score}</h2><button onClick={handleBack}>Back</button><br/><br/><br/><br/>Click back to save your score to the leaderboard!</div>
+        <div className='home-body'>
+          <h1>Game Over</h1>
+          <h2>Score: {score}</h2><br/><br/>
+          <button onClick={handlePlayAgain}>Play Again</button><br/><br/><br/>
+          <button onClick={handleBack}>Back</button><br/><br/><br/>
+        </div>
       )
     }else{
       return(
