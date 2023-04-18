@@ -14,6 +14,7 @@ import timeSound from '../sounds/time.wav';
 import healthSound from '../sounds/health.wav';
 import coinSound from '../sounds/coin.wav';
 import buttonSound from '../sounds/button.wav';
+import timeWarningSound from '../sounds/timewarning.wav';
 
 function Play({user, setValues, setUser, maxHealth, enemySetter}){
   
@@ -30,6 +31,7 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
   const healthSoundPlay = new Audio(healthSound);
   const coinSoundPlay = new Audio(coinSound);
   const buttonSoundPlay = new Audio(buttonSound);
+  const timeWarningSoundPlay = new Audio(timeWarningSound);
 
   const time = useSelector(state => state.time)
   const score = useSelector(state => state.score)
@@ -85,6 +87,7 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
   },[...holeList, shouldAddListener])
 
   useEffect(() => {
+    if((time>0)&&(time<6)){timeWarningSoundPlay.play()}
     if ((time <= 0 || health <= 0) && shouldAddListener) {
       timeoutsRef.current.forEach(timeoutId => clearTimeout(timeoutId));
       emptyHoles()
@@ -427,12 +430,8 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
 
   const avocadoImages = [avocado1, avocado2, avocado3]
 
-  // const [nextAvocado, setNextAvocado] = useState(0);
-
   const randomAvocado = () => {
     return (avocadoImages[randomTime(0,(avocadoImages.length-1))])
-    // setNextAvocado(current => current+1)
-    // return (avocadoImages[nextAvocado])
   }
 
 

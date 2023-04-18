@@ -1,5 +1,6 @@
 import {useState} from 'react'
 import buttonSound from '../sounds/button.wav';
+import buySound from '../sounds/buy.wav';
 
 function Items({user, setUser, allItems, setValues}){
 
@@ -7,6 +8,7 @@ function Items({user, setUser, allItems, setValues}){
   const [selectedItem, setSelectedItem] = useState(null);
 
   const buttonSoundPlay = new Audio(buttonSound);
+  const buySoundPlay = new Audio(buySound);
 
   function handleMenu(e){
     const filtered = allItems.filter(item => item.category === e.target.value)
@@ -39,6 +41,7 @@ function Items({user, setUser, allItems, setValues}){
     const cost = allItems.filter(item => item.id === selected_item)[0].cost
     const newCoins = (user['coins'])-cost
     if(newCoins<0){return alert('You do not have enough coins')}
+    buySoundPlay.play()
     fetch('/useritems', {
       method: 'POST',
       headers: {
@@ -64,7 +67,7 @@ function Items({user, setUser, allItems, setValues}){
   }
 
   function handleEquip(itemId){
-    buttonSoundPlay.play()
+    // buttonSoundPlay.play()
     setSelectedItem(itemId);
   }
 
@@ -73,6 +76,7 @@ function Items({user, setUser, allItems, setValues}){
     const owned = user['item_list'].includes(id);
     const equipped = user['item1']===id || user['item2']===id;
     function handleEquipClick(){
+      buttonSoundPlay.play()
       handleEquip(id);
     }
     function handleModalButton(e){
