@@ -49,6 +49,7 @@ function Items({user, setUser, allItems, setValues}){
     .then(res => {
       if (res.ok) {
         fetcher({"coins":newCoins})
+        handleEquip(selected_item)
       }
     })
   }
