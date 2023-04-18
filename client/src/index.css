@@ -349,3 +349,12 @@ input{
   overflow-y: scroll;
   line-height: 1.5;
 }
+
+select {
+  width: 310px;
+  height: 25px;
+  font-size: 12px;
+  font-family: 'Press Start 2P';
+  border: ridge #ffd900;
+  border-width: 5px;
+}
