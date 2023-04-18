@@ -28,6 +28,11 @@ function Home({user, handleLogout}){
     history.push('/highscores')
   }
 
+  function handleHowToPlay(){
+    buttonSoundPlay.play()
+    history.push('/howtoplay')
+  }
+
   return(
     <div className='home-body'>
       <br/><h2>{user.username}</h2><br/><br/>
@@ -35,6 +40,7 @@ function Home({user, handleLogout}){
       <button onClick={handleItems}>Items</button><br/><br/><br/>
       <button onClick={handleSettings}>Settings</button><br/><br/><br/>
       <button onClick={handleHighScores}>High Scores</button><br/><br/><br/>
+      <button onClick={handleHowToPlay}>How To Play</button><br/><br/><br/>
       <button onClick={handleLogout}>Log Out</button>
     </div>
   )

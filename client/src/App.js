@@ -21,6 +21,7 @@ import PlayBottomHud from './components/PlayBottomHud.js';
 import Secret from './components/Secret';
 import Settings from './components/Settings.js';
 import SettingsBottomHud from './components/SettingsBottomHud.js';
+import HowToPlay from './components/HowToPlay';
 
 function App() {
 
@@ -106,6 +107,9 @@ function App() {
             <Route path="/highscores" exact>
               <HighScoresTopHud/>
             </Route>
+            <Route path="/howtoplay" exact>
+              <HighScoresTopHud/>
+            </Route>
             <Route path="/items" exact>
               <ItemsTopHud user={user}/>
             </Route>
@@ -127,6 +131,9 @@ function App() {
             </Route>
             <Route path="/highscores" exact>
               <HighScores/>
+            </Route>
+            <Route path="/howtoplay" exact>
+              <HowToPlay/>
             </Route>
             <Route path="/items" exact>
               <Items user={user} setUser={setUser} allItems={allItems} setValues={setValues}/>
@@ -154,6 +161,9 @@ function App() {
         <div className='bottom-hud'>
         <Switch>
             <Route path="/highscores" exact>
+              <HighScoresBottomHud handleLogout={handleLogout}/>
+            </Route>
+            <Route path="/howtoplay" exact>
               <HighScoresBottomHud handleLogout={handleLogout}/>
             </Route>
             <Route path="/3122213" exact>
