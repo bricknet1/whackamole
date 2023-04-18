@@ -1,12 +1,5 @@
-import { useHistory } from 'react-router-dom';
-// import buttonSound from '../sounds/button.wav';
 
 function HowToPlay(){
-
-  const history = useHistory();
-
-
-
 
   return(
     <div className='home-body'>
