@@ -15,6 +15,7 @@ import HighScoresBottomHud from './components/HighScoresBottomHud.js';
 import Items from './components/Items.js';
 import ItemsTopHud from './components/ItemsTopHud.js';
 import ItemsBottomHud from './components/ItemsBottomHud.js';
+import PlayStart from './components/PlayStart.js';
 import Play from './components/Play.js';
 import PlayTopHud from './components/PlayTopHud.js';
 import PlayBottomHud from './components/PlayBottomHud.js';
@@ -140,6 +141,9 @@ function App() {
             </Route>
             <Route path="/play" exact>
               <Play user={user} setUser={setUser} setValues={setValues} maxHealth={maxHealth} enemySetter={enemySetter}/>
+            </Route>
+            <Route path="/playstart" exact>
+              <PlayStart user={user}/>
             </Route>
             <Route path="/settings" exact>
               <Settings user={user} setUser={setUser}/>
