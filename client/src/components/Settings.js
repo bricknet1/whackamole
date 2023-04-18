@@ -1,7 +1,11 @@
+import {useState} from 'react';
+
 import buttonSound from '../sounds/button.wav';
 import button2Sound from '../sounds/button2.wav';
 
 function Settings({user, setUser}){
+
+  const [active, setActive] = useState(false);
 
   const buttonSoundPlay = new Audio(buttonSound);
   const button2SoundPlay = new Audio(button2Sound);
@@ -27,17 +31,25 @@ function Settings({user, setUser}){
     const buttons = [user['numpad1'], user['numpad2'], user['numpad3'], user['numpad4'], user['numpad5'], user['numpad6'], user['numpad7'], user['numpad8'], user['numpad9']]
 
     function handleClick(e){
-      buttonSoundPlay.play()
-      const whichHole = e.target.value;
-      document.addEventListener("keypress", keyOutput)
-      function keyOutput(e){
-        if (buttons.includes(e.key)){alert('That key is already assigned. Please use a different key.')}else{
-        document.removeEventListener("keypress", keyOutput)
-        button2SoundPlay.play()
-        const values = {[whichHole]:e.key}
-        fetcher(values)
+      if (active===false){
+        setActive(true)
+        buttonSoundPlay.play()
+        const whichHole = e.target.value;
+        document.addEventListener("keypress", keyOutput)
+        function keyOutput(e){
+          if (buttons.includes(e.key)){
+            alert('That key is already assigned. Please try again.')
+            document.removeEventListener("keypress", keyOutput)
+            setActive(false)
+          }else{
+            document.removeEventListener("keypress", keyOutput)
+            button2SoundPlay.play()
+            const values = {[whichHole]:e.key}
+            fetcher(values)
+            setActive(false)
+          }
         }
-      }
+      } else if (active===true){return ''}
     }
 
     return(
