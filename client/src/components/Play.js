@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 
 import avocado1 from '../images/avocado1.png';
 import avocado2 from '../images/avocado2.png';
+import avocado3 from '../images/avocado3.png';
 
 import emptySound from '../sounds/empty.wav';
 import loseSound from '../sounds/lose.wav';
@@ -405,7 +406,7 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
     dispatch(hole9up([0,0,0]))
   }
 
-  const avocadoImages = [avocado1, avocado2]
+  const avocadoImages = [avocado1, avocado2, avocado3]
 
   // const [nextAvocado, setNextAvocado] = useState(0);
 
