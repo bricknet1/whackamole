@@ -73,9 +73,9 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
     dispatch(hole7up([0,0,0]))
     dispatch(hole8up([0,0,0]))
     dispatch(hole9up([0,0,0]))
-    dispatch(scoreSet(0))
+    // dispatch(scoreSet(0))
     holeBegin()
-    return(dispatch(scoreSet(0)))
+    // return(dispatch(scoreSet(0)))
     // eslint-disable-next-line
   },[])
 
@@ -406,6 +406,7 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
     })
     .then(res => {
       if (res.ok) {
+        dispatch(scoreSet(0))
         history.push('/highscores')
       } else {
         res.json().then(error => console.log(error.message))
@@ -425,6 +426,7 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
     })
     .then(res => {
       if (res.ok) {
+        dispatch(scoreSet(0))
         history.push('/playstart')
       } else {
         res.json().then(error => console.log(error.message))
@@ -465,6 +467,8 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
           <h3>Accuracy: {Math.round(((totalAttacks-misses)/totalAttacks)*100)}%</h3><br/>
           <button onClick={handlePlayAgain}>Play Again</button><br/><br/><br/>
           <button onClick={handleBack}>Back</button><br/><br/><br/>
+          ↑ ↑ ↑ ↑ 
+          <p className='warning'>Click one of these 2 buttons to save your score to the leaderboard!</p>
         </div>
       )
     }else{

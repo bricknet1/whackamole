@@ -162,7 +162,7 @@ input{
 }
 
 .item-store {
-  margin: 20px 0px 0px 30px;
+  margin: 15px 0px 0px 20px;
   height: 30px;
   align-items: left;
   text-align: left;
@@ -171,7 +171,7 @@ input{
 
 .storebutton {
   position: relative;
-  width: 130px;
+  width: 150px;
   height: 20px;
   font-size: 12px;
   vertical-align: 35%;
@@ -357,4 +357,8 @@ select {
   font-family: 'Press Start 2P';
   border: ridge #ffd900;
   border-width: 5px;
+}
+
+.warning{
+  font-size: 12px;
 }
