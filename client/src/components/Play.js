@@ -256,13 +256,13 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
       if (e.key===buttons[0]){
         if (hole1[1]>0){
           dispatch(hole1hit(attackValue))
-          if(defenseValue<hole1[0]){dispatch(healthDown(hole1[0]-defenseValue))}
           if((hole1[1]-attackValue)<=0){
             dispatch(scoreUp(hole1[2]))
             hole1Clock()
             reward()
             setEnemiesDefeated(current=>current+1)
           } else {hitSoundPlay.play()}
+          if(defenseValue<hole1[0]){dispatch(healthDown(hole1[0]-defenseValue))}
         } else if (hole1[1]<=0){
           hitEmptyHole()
         }
@@ -270,13 +270,13 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
       } else if (e.key===buttons[1]){
         if (hole2[1]>0){
           dispatch(hole2hit(attackValue))
-          if(defenseValue<hole2[0]){dispatch(healthDown(hole2[0]-defenseValue))}
           if((hole2[1]-attackValue)<=0){
             dispatch(scoreUp(hole2[2]))
             hole2Clock()
             reward()
             setEnemiesDefeated(current=>current+1)
           } else {hitSoundPlay.play()}
+          if(defenseValue<hole2[0]){dispatch(healthDown(hole2[0]-defenseValue))}
         } else if (hole2[1]<=0){
           hitEmptyHole()
         }
@@ -284,13 +284,13 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
       } else if (e.key===buttons[2]){
         if (hole3[1]>0){
           dispatch(hole3hit(attackValue))
-          if(defenseValue<hole3[0]){dispatch(healthDown(hole3[0]-defenseValue))}
           if((hole3[1]-attackValue)<=0){
             dispatch(scoreUp(hole3[2]))
             hole3Clock()
             reward()
             setEnemiesDefeated(current=>current+1)
           } else {hitSoundPlay.play()}
+          if(defenseValue<hole3[0]){dispatch(healthDown(hole3[0]-defenseValue))}
         } else if (hole3[1]<=0){
           hitEmptyHole()
         }
@@ -298,13 +298,13 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
       } else if (e.key===buttons[3]){
         if (hole4[1]>0){
           dispatch(hole4hit(attackValue))
-          if(defenseValue<hole4[0]){dispatch(healthDown(hole4[0]-defenseValue))}
           if((hole4[1]-attackValue)<=0){
             dispatch(scoreUp(hole4[2]))
             hole4Clock()
             reward()
             setEnemiesDefeated(current=>current+1)
           } else {hitSoundPlay.play()}
+          if(defenseValue<hole4[0]){dispatch(healthDown(hole4[0]-defenseValue))}
         } else if (hole4[1]<=0){
           hitEmptyHole()
         }
@@ -312,13 +312,13 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
       } else if (e.key===buttons[4]){
         if (hole5[1]>0){
           dispatch(hole5hit(attackValue))
-          if(defenseValue<hole5[0]){dispatch(healthDown(hole5[0]-defenseValue))}
           if((hole5[1]-attackValue)<=0){
             dispatch(scoreUp(hole5[2]))
             hole5Clock()
             reward()
             setEnemiesDefeated(current=>current+1)
           } else {hitSoundPlay.play()}
+          if(defenseValue<hole5[0]){dispatch(healthDown(hole5[0]-defenseValue))}
         } else if (hole5[1]<=0){
           hitEmptyHole()
         }
@@ -326,13 +326,13 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
       } else if (e.key===buttons[5]){
         if (hole6[1]>0){
           dispatch(hole6hit(attackValue))
-          if(defenseValue<hole6[0]){dispatch(healthDown(hole6[0]-defenseValue))}
           if((hole6[1]-attackValue)<=0){
             dispatch(scoreUp(hole6[2]))
             hole6Clock()
             reward()
             setEnemiesDefeated(current=>current+1)
           } else {hitSoundPlay.play()}
+          if(defenseValue<hole6[0]){dispatch(healthDown(hole6[0]-defenseValue))}
         } else if (hole6[1]<=0){
           hitEmptyHole()
         }
@@ -340,13 +340,13 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
       } else if (e.key===buttons[6]){
         if (hole7[1]>0){
           dispatch(hole7hit(attackValue))
-          if(defenseValue<hole7[0]){dispatch(healthDown(hole7[0]-defenseValue))}
           if((hole7[1]-attackValue)<=0){
             dispatch(scoreUp(hole7[2]))
             hole7Clock()
             reward()
             setEnemiesDefeated(current=>current+1)
           } else {hitSoundPlay.play()}
+          if(defenseValue<hole7[0]){dispatch(healthDown(hole7[0]-defenseValue))}
         } else if (hole7[1]<=0){
           hitEmptyHole()
         }
@@ -354,13 +354,13 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
       } else if (e.key===buttons[7]){
         if (hole8[1]>0){
           dispatch(hole8hit(attackValue))
-          if(defenseValue<hole8[0]){dispatch(healthDown(hole8[0]-defenseValue))}
           if((hole8[1]-attackValue)<=0){
             dispatch(scoreUp(hole8[2]))
             hole8Clock()
             reward()
             setEnemiesDefeated(current=>current+1)
           } else {hitSoundPlay.play()}
+          if(defenseValue<hole8[0]){dispatch(healthDown(hole8[0]-defenseValue))}
         } else if (hole8[1]<=0){
           hitEmptyHole()
         }
@@ -368,13 +368,13 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
       } else if (e.key===buttons[8]){
         if (hole9[1]>0){
           dispatch(hole9hit(attackValue))
-          if(defenseValue<hole9[0]){dispatch(healthDown(hole9[0]-defenseValue))}
           if((hole9[1]-attackValue)<=0){
             dispatch(scoreUp(hole9[2]))
             hole9Clock()
             reward()
             setEnemiesDefeated(current=>current+1)
           } else {hitSoundPlay.play()}
+          if(defenseValue<hole9[0]){dispatch(healthDown(hole9[0]-defenseValue))}
         } else if (hole9[1]<=0){
           hitEmptyHole()
         }
