@@ -3,27 +3,16 @@
 body {
   margin: 0;
   font-family: 'Press Start 2P';
-  /* -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale; */
   background-color: #8fff73;
 }
-
-/* code {
-  font-family: 'Press Start 2P';
-} */
 
 .header{
   position: absolute;
   width: 600px;
   height: 100px;
   left: calc(50% - 600px/2);
-  /* top: 19px; */
   font-family: 'Press Start 2P';
-  /* font-style: normal; */
-  /* font-weight: 400; */
   font-size: 20px;
-  /* line-height: 60px; */
-  /* display: flex; */
   align-items: center;
   text-align: center;
   color: #000000;
@@ -59,8 +48,6 @@ body {
   text-align: center;
 }
 
-/* bottom hud */
-
 .bottom-hud{
   position: absolute;
   width: 550px;
@@ -82,7 +69,6 @@ button {
   background: #D9D9D9;
   font-family: 'Press Start 2P';
   cursor: pointer
-  /* margin: 10px; */
 }
 
 @keyframes bgcolor {
@@ -259,12 +245,6 @@ input{
   left: calc(50% - 500px/2);
 }
 
-/* .hole-content{
-  position: absolute;
-  left: calc(50% - 100px/2);
-  top: calc(50% - 100px/2);
-} */
-
 .enemyImage{
   position: absolute;
   border-radius: 50px;
@@ -294,7 +274,7 @@ input{
   border-radius: 20px;
   align-items: center;
   text-align: center;
-  z-index: 1; /* Sit on top */
+  z-index: 1; 
   background-color: #4FC9C2; 
 }
 

@@ -458,7 +458,6 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
         <div className='home-body'>
           <h1>Game Over</h1>
           <h2>Score: {score}</h2>
-          {/* <h3>Wave: {tier}</h3> */}
           <h3>Enemies Defeated: {enemiesDefeated}</h3>
           <h3>Total Attacks: {totalAttacks}</h3>
           <h3>Misses: {misses}</h3>
