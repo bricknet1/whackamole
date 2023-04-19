@@ -18,7 +18,6 @@ function Items({user, setUser, allItems, setValues}){
   function handleMenu(e){
     const filtered = allItems.filter(item => item.category === e.target.value)
     setItemsToDisplay(filtered)
-    console.log(itemsToDisplay);
   }
 
   function fetcher(values){

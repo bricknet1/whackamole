@@ -169,10 +169,8 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
   }
 
   const raiseTierClock = ()=> setTimeout(()=>{
-    // if(time>0 && health>0){
       setTier(current=>current+1)
       raiseTierClock()
-    // }
   }, 20000)
 
   function holeBegin(){
