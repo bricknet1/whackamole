@@ -90,7 +90,7 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
   },[...holeList, shouldAddListener])
 
   useEffect(() => {
-    if((time>0)&&(time<6)){timeWarningSoundPlay.play()}
+    if((time>0)&&(time<6)&&(health>0)){timeWarningSoundPlay.play()}
     if ((time <= 0 || health <= 0) && shouldAddListener) {
       timeoutsRef.current.forEach(timeoutId => clearTimeout(timeoutId));
       emptyHoles()
