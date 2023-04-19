@@ -23,7 +23,7 @@ with app.app_context():
         id=1,
         username='bricknet',
         email='test@test.com',
-        coins=1000,
+        coins=5000,
         item1=5,
         item2=10
     )

@@ -23,6 +23,9 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
   const [loaded, setLoaded] = useState(false);
   const [tier, setTier] = useState(1);
   const [shouldAddListener, setShouldAddListener] = useState(true);
+  const [totalAttacks, setTotalAttacks] = useState(0);
+  const [misses, setMisses] = useState(0);
+  const [enemiesDefeated, setEnemiesDefeated] = useState(0)
 
   const emptySoundPlay = new Audio(emptySound);
   const loseSoundPlay = new Audio(loseSound);
@@ -166,8 +169,10 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
   }
 
   const raiseTierClock = ()=> setTimeout(()=>{
-    setTier(current=>current+1)
-    raiseTierClock()
+    // if(time>0 && health>0){
+      setTier(current=>current+1)
+      raiseTierClock()
+    // }
   }, 20000)
 
   function holeBegin(){
@@ -236,12 +241,14 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
   function hitEmptyHole(){
     // console.log("Hit an empty hole");
     dispatch(clockDown(5));
+    setMisses(current=>current+1)
     emptySoundPlay.play();
     document.addEventListener("keypress", hit);
   }
 
   function hit(e){
     document.removeEventListener("keypress", hit)
+    setTotalAttacks(current=>current+1)
     if (time<1 || health<1){
       return(loseSoundPlay.play())
     } else if (time>0 && health>0){
@@ -254,6 +261,7 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
             dispatch(scoreUp(hole1[2]))
             hole1Clock()
             reward()
+            setEnemiesDefeated(current=>current+1)
           } else {hitSoundPlay.play()}
         } else if (hole1[1]<=0){
           hitEmptyHole()
@@ -267,6 +275,7 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
             dispatch(scoreUp(hole2[2]))
             hole2Clock()
             reward()
+            setEnemiesDefeated(current=>current+1)
           } else {hitSoundPlay.play()}
         } else if (hole2[1]<=0){
           hitEmptyHole()
@@ -280,6 +289,7 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
             dispatch(scoreUp(hole3[2]))
             hole3Clock()
             reward()
+            setEnemiesDefeated(current=>current+1)
           } else {hitSoundPlay.play()}
         } else if (hole3[1]<=0){
           hitEmptyHole()
@@ -293,6 +303,7 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
             dispatch(scoreUp(hole4[2]))
             hole4Clock()
             reward()
+            setEnemiesDefeated(current=>current+1)
           } else {hitSoundPlay.play()}
         } else if (hole4[1]<=0){
           hitEmptyHole()
@@ -306,6 +317,7 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
             dispatch(scoreUp(hole5[2]))
             hole5Clock()
             reward()
+            setEnemiesDefeated(current=>current+1)
           } else {hitSoundPlay.play()}
         } else if (hole5[1]<=0){
           hitEmptyHole()
@@ -319,6 +331,7 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
             dispatch(scoreUp(hole6[2]))
             hole6Clock()
             reward()
+            setEnemiesDefeated(current=>current+1)
           } else {hitSoundPlay.play()}
         } else if (hole6[1]<=0){
           hitEmptyHole()
@@ -332,6 +345,7 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
             dispatch(scoreUp(hole7[2]))
             hole7Clock()
             reward()
+            setEnemiesDefeated(current=>current+1)
           } else {hitSoundPlay.play()}
         } else if (hole7[1]<=0){
           hitEmptyHole()
@@ -345,6 +359,7 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
             dispatch(scoreUp(hole8[2]))
             hole8Clock()
             reward()
+            setEnemiesDefeated(current=>current+1)
           } else {hitSoundPlay.play()}
         } else if (hole8[1]<=0){
           hitEmptyHole()
@@ -358,6 +373,7 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
             dispatch(scoreUp(hole9[2]))
             hole9Clock()
             reward()
+            setEnemiesDefeated(current=>current+1)
           } else {hitSoundPlay.play()}
         } else if (hole9[1]<=0){
           hitEmptyHole()
@@ -441,7 +457,12 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
       return(
         <div className='home-body'>
           <h1>Game Over</h1>
-          <h2>Score: {score}</h2><br/><br/>
+          <h2>Score: {score}</h2>
+          {/* <h3>Wave: {tier}</h3> */}
+          <h3>Enemies Defeated: {enemiesDefeated}</h3>
+          <h3>Total Attacks: {totalAttacks}</h3>
+          <h3>Misses: {misses}</h3>
+          <h3>Accuracy: {Math.round(((totalAttacks-misses)/totalAttacks)*100)}%</h3><br/>
           <button onClick={handlePlayAgain}>Play Again</button><br/><br/><br/>
           <button onClick={handleBack}>Back</button><br/><br/><br/>
         </div>
