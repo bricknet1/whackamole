@@ -395,7 +395,7 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
   function handleBack(){
     buttonSoundPlay.play()
     const values = {"score":score, "id":user.id}
-    fetch('/highscores', {
+    fetch('/highscoresdb', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -415,7 +415,7 @@ function Play({user, setValues, setUser, maxHealth, enemySetter}){
   function handlePlayAgain(){
     buttonSoundPlay.play()
     const values = {"score":score, "id":user.id}
-    fetch('/highscores', {
+    fetch('/highscoresdb', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

@@ -21,7 +21,7 @@ function Login({ setUser, setValues }) {
     },
     onSubmit: (values) => {
       buttonSoundPlay.play()
-      fetch("/login", {
+      fetch("/logindb", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

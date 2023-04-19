@@ -5,7 +5,7 @@ function HighScores(){
   const [highScores, setHighScores] = useState([])
 
   useEffect(() => {
-    fetch('/highscores')
+    fetch('/highscoresdb')
     .then(res => res.json())
     .then(data => setHighScores(data))
   },[])

@@ -39,7 +39,7 @@ function Signup({setUser, setValues}) {
     validateOnBlur: false,
     onSubmit: (values) => {
       buttonSoundPlay.play()
-      fetch('/signup', {
+      fetch('/signupdb', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

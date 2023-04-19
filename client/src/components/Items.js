@@ -47,7 +47,7 @@ function Items({user, setUser, allItems, setValues}){
     const newCoins = (user['coins'])-cost
     if(newCoins<0){return alert('You do not have enough coins')}
     if (selected_item < 50){
-      fetch('/useritems', {
+      fetch('/useritemsdb', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

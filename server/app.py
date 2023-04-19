@@ -26,7 +26,7 @@ class Signup(Resource):
             return make_response(user.to_dict(), 201)
         except Exception as e:
             return make_response({'error': str(e)}, 400)
-api.add_resource(Signup, '/signup')
+api.add_resource(Signup, '/signupdb')
 
 class Login(Resource):
     def post(self):
@@ -40,7 +40,7 @@ class Login(Resource):
                 abort(404, 'Incorrect username or password.')
         else:
             abort(404, 'Incorrect username or password.')
-api.add_resource(Login, '/login')
+api.add_resource(Login, '/logindb')
 
 class AuthorizedSession(Resource):
     def get(self):
@@ -49,13 +49,13 @@ class AuthorizedSession(Resource):
             return make_response(user.to_dict(), 200)
         except:
             abort(401, "Not Authorized")
-api.add_resource(AuthorizedSession, '/authorized')
+api.add_resource(AuthorizedSession, '/authorizeddb')
 
 class Logout(Resource):
     def delete(self):
         session['user_id'] = None
         return make_response('', 204)
-api.add_resource(Logout, '/logout')
+api.add_resource(Logout, '/logoutdb')
 
 class Scores(Resource):
     def get(self):
@@ -72,13 +72,13 @@ class Scores(Resource):
         db.session.add(newscore)
         db.session.commit()
         return make_response(newscore.to_dict(), 201)
-api.add_resource(Scores, '/highscores')
+api.add_resource(Scores, '/highscoresdb')
 
 class Items(Resource):
     def get(self):
         items = [item.to_dict() for item in Item.query.all()]
         return make_response(items, 200)
-api.add_resource(Items, '/items')
+api.add_resource(Items, '/itemsdb')
 
 class Users(Resource):
     def patch(self, id):
@@ -109,7 +109,7 @@ class UserItems(Resource):
         db.session.add(new)
         db.session.commit()
         return make_response(new.to_dict(), 201)
-api.add_resource(UserItems, '/useritems')
+api.add_resource(UserItems, '/useritemsdb')
 
 class Enemies(Resource):
     def get(self):
@@ -118,7 +118,7 @@ class Enemies(Resource):
             return make_response(enemies, 200)
         except Exception as e:
             abort(404, [e.__str__()])
-api.add_resource(Enemies, '/enemies')
+api.add_resource(Enemies, '/enemiesdb')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

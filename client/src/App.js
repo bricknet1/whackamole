@@ -45,13 +45,13 @@ function App() {
   },[userFetch])
 
   function fetchItems(){
-    fetch('/items')
+    fetch('/itemsdb')
     .then(res => res.json())
     .then(data => setAllItems(data))
   }
 
   function fetchUser (){
-    fetch('/authorized')
+    fetch('/authorizeddb')
     .then(res => {
       if(res.ok){
         res.json()
@@ -79,14 +79,14 @@ function App() {
   }
 
   function enemySetter(){
-    fetch('/enemies')
+    fetch('/enemiesdb')
     .then(res=>res.json())
     .then(data=>dispatch(setEnemies(data)))
   }
 
   function handleLogout(){
     button3SoundPlay.play()
-    fetch('/logout', {
+    fetch('/logoutdb', {
       method: "DELETE"
     })
     .then(res => {
