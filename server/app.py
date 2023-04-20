@@ -62,7 +62,7 @@ class Scores(Resource):
         try:
             scores = [score.to_dict(rules=('user',)) for score in Score.query.all()]
             scores.sort(key=lambda x: x['score'], reverse=True)
-            return make_response(scores[:10], 200)
+            return make_response(scores[:100], 200)
         except Exception as e:
             abort(404, [e.__str__()])
 

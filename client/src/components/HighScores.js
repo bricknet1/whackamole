@@ -19,11 +19,12 @@ function HighScores(){
   })
 
   return(
-    <div className='highscores'>
+    <>
       <h2>high scores</h2>
-      <br/>
-      {scoreList}
-    </div>
+      <div className='highscores'>
+        {scoreList}
+      </div>
+    </>
   )
 }
 
